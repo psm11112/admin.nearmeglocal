@@ -8,7 +8,7 @@
     items-center
     p-2
     text-gray-500
-    font-bold rounded-lg dark:text-white  hover:duration-500  hover:delay-300 hover:bg-gray-100 hover:text-purple-500 dark:hover:bg-gray-700
+    font-bold rounded-lg dark:text-white  hover:duration-500  hover:delay-300 hover:bg-purple-300 hover:text-white dark:hover:bg-gray-700
     font-rubik
 }
 .cardHover{
@@ -30,13 +30,89 @@
     @apply mb-2 font-extrabold text-slate-800  dark:text-gray-300 text-3xl relative font-rubik
 }
 .formButton{
-    @apply text-white text-lg  bg-purple-500 hover:bg-blue-800 focus:ring-4 hover:duration-500 focus:outline-none focus:ring-blue-300  rounded-lg  w-full sm:w-auto px-5 py-2.5 text-center
+    @apply
+    text-white
+    text-sm
+    bg-purple-500
+    shadow-md
+    shadow-gray-500/20
+    hover:bg-blue-800
+    focus:ring-4
+    hover:duration-500
+    focus:outline-none
+    focus:ring-blue-300
+    rounded-lg
+    w-full
+    sm:w-auto
+    px-5
+    py-2.5
+    text-center
 }
 .formLable{
     @apply block mb-2 text-lg font-normal text-gray-900 dark:text-white
 }
 .formSubTitle{
     @apply  text-2xl font-normal
+}
+.inputError{
+    @apply
+    border
+    border-red-800
+    bg-gray-50
+    text-gray-900
+    text-sm
+    rounded-lg
+    focus:ring-blue-500
+    focus:border-blue-500
+    block
+    w-full
+    p-2.5
+    dark:bg-gray-700
+    dark:border-red-800
+    dark:placeholder-gray-400
+    dark:text-white
+    dark:focus:ring-blue-500
+    dark:focus:border-blue-500
+}
+.paginationActive{
+    @apply  flex
+    items-center
+    justify-center
+    px-4
+    h-10
+    leading-tight
+    text-white
+    font-bold
+    bg-purple-600
+    border
+    border-gray-300
+    hover:bg-gray-100
+    hover:text-gray-700
+    dark:bg-purple-600
+    dark:border-gray-700
+    dark:text-gray-400
+    dark:hover:bg-gray-700
+    dark:hover:text-white
+}
+.pagination{
+   @apply
+   flex
+   items-center
+   justify-center
+   px-4
+   h-10
+   leading-tight
+   text-gray-500
+   bg-white
+   border
+   border-gray-300
+   hover:bg-gray-100
+   hover:text-gray-700
+   dark:bg-gray-800
+   dark:border-gray-700
+   dark:text-gray-400
+   dark:hover:bg-gray-700
+   dark:hover:text-white
 }
 
 

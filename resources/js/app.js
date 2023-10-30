@@ -7,8 +7,19 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { createPinia } from 'pinia'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import Toast from "vue-toastification";
+
+
+// Import the CSS or use your own!
+import "vue-toastification/dist/index.css";
 
 const pinia = createPinia()
+
+
+const options = {
+    // You can set your default options here
+};
+
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -21,6 +32,9 @@ createInertiaApp({
             .use(ZiggyVue, Ziggy)
             .use(pinia)
             .use(autoAnimatePlugin)
+            .use(Toast, options)
+
+
             .mount(el);
     },
     progress: {

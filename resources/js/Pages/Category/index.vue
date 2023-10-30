@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import {ref} from 'vue'
 import { useForm } from '@inertiajs/vue3'
 
+
 const form = useForm({
     name: null,
     sku: null,
@@ -19,6 +20,7 @@ const form = useForm({
         <div class="py-5">
 
             <span class="formTitle">Category</span>
+
 
 
 
