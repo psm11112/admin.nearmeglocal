@@ -44,9 +44,10 @@ Route::controller(\App\Http\Controllers\Admin\CountryController::class)->group(f
 })->middleware(['auth', 'verified']);
 
 Route::controller(\App\Http\Controllers\StatesController::class)->group(function () {
+    Route::get('/state/create','create')->name('state.create');
     Route::get('/state/{id}','edit')->name('state.edit');
     Route::get('/state','index')->name('state.index');
-    Route::get('/state/create','create')->name('state.create');
+
     Route::post('/state/store','store')->name('state.store');
     Route::post('/state/change-status','changeStatus')->name('state.change-status');
     Route::post('/state/deleted','itemDeleted')->name('state.deleted');
