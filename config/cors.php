@@ -15,7 +15,12 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/*','login','logout','public/js/uikit.min.js','public/js/simplebar.js','public/js/script.js'],
+    'paths' => ['api/*', 'sanctum/*','login','logout','register',
+        'public/js/uikit.min.js',
+        'public/js/simplebar.js',
+        'public/js/script.js',
+        'api/register'
+    ],
 
     'allowed_methods' => ['*'],
 

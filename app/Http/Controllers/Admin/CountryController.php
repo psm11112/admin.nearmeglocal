@@ -53,6 +53,10 @@ class CountryController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function changeStatus(Request $request)
     {
         $id='';
@@ -76,6 +80,11 @@ class CountryController extends Controller
 
 
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function itemDeleted(Request $request){
 
         $country=Country::findOrFail($request->id);

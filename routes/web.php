@@ -57,6 +57,15 @@ Route::controller(\App\Http\Controllers\StatesController::class)->group(function
 
 });
 
+Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
+    Route::get('/user','index')->name('user.index');
+    Route::post('/user/change-status','changeStatus')->name('user.change-status');
+    Route::post('/user/deleted','itemDeleted')->name('user.delete');
+
+
+
+});
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
