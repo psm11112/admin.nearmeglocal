@@ -118,6 +118,8 @@ function closeShowView(){
                     </div>
                     <div class="flex justify-center" v-if="!form.processing && country.data.length" >
                         <Table
+                            :imageDisplay="false"
+                            :svg="true"
                             :tableHeader="['','Name','Status','Action']"
                             :data="country"
                             @showView="showView"

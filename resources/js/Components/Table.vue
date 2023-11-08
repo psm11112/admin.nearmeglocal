@@ -14,6 +14,8 @@ const props=defineProps({
     deleteRoute:[],
     changeStatusRoute:[],
     userEditName:'',
+    imageDisplay:'',
+    svg:''
 
 })
 
@@ -73,39 +75,40 @@ function deleteItem(id){
 
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" v-for="(item,index) in data.data" :key="index">
             <td >
-                <div class="flex items-center"  >
+                <div class="flex items-center p-2"  >
+
 
                     <span v-if="item.url==null"></span>
-                    <span   v-if="item.url!==null">
-                                        <Image :url="baseUrl+item.url" :name="item.name"></Image>
-                                       </span>
+                    <span v-if="item.url!==null">
+                        <Image v-if="imageDisplay"  :url="baseUrl+item.url" :name="item.name"></Image>
+                       <span v-if="svg" v-html="item.svg" class="text-2xl"></span>
+
+                    </span>
                 </div>
             </td>
 
-            <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="flex items-center px-1 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                <div class="px-1 text-base font-semibold">{{item.name}}</div>
 
-                <div class="pl-3">
-                    <div class="text-base font-semibold">{{item.name}}</div>
 
-                </div>
             </th>
 
 
-            <td v-if="item.email" class="px-6 py-4">
-                <div class="flex items-center text-base font-semibold">
+            <td v-if="item.email" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
                     {{item.email}}
 
                 </div>
             </td>
 
 
-            <td class="px-6 py-4">
-                <div class="flex items-center">
+            <td class="px-1 py-4">
+                <div class="px-1 flex items-center">
 
                     <ToggleButton  @statusChange="changeStatus" :id="item.id" :check="item.is_active" :processing="form.processing" ></ToggleButton>
                 </div>
             </td>
-            <td class=" py-4 space-x-2 ">
+            <td class="py-4 space-x-2 ">
                 <!-- Modal toggle -->
 
 
