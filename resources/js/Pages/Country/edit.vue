@@ -50,8 +50,8 @@ function success(){
 
 function selectFlag(name,svg){
 
-    this.selectedFlag=svg
-    this.form.svg=svg
+    selectedFlag.value=svg
+    form.svg=svg
 
 }
 function removeFlag(){
