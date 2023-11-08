@@ -5,6 +5,19 @@ import Pagination from '@/Components/Pagination.vue'
 import Serach from '@/Components/Search.vue'
 import Table from "@/Components/Table.vue";
 import Image from "@/Components/Image.vue"
+import Breadcrumb from '@/Components/Breadcrumb.vue'
+
+
+
+
+const breadcrumbList=[
+    {
+        name:'User',
+        url:route('user.index'),
+        active:true
+    },
+
+]
 
 import {ref} from "vue";
 
@@ -53,7 +66,8 @@ function closeShowView(){
         <span class="formTitle">User</span>
         <div  class="h-full my-12 mx-auto  md:px-12  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
-            <div class="p-4">
+            <div class="p-5">
+                <Breadcrumb :data="breadcrumbList"></Breadcrumb>
                 <div class="relative  shadow-md sm:rounded-lg p-8">
                     <div class="flex items-center justify-end p-4">
 
