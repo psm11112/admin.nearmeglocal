@@ -8,9 +8,8 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ErrorMessage from '@/Components/Error.vue'
 import {ref} from "vue";
 import Breadcrumb from '@/Components/Breadcrumb.vue'
-
-
-
+const toast= useToast();
+let selectedFlag=ref('');
 
 const breadcrumbList=[
     {
@@ -29,8 +28,6 @@ const props = defineProps({
     flag: [],
 })
 
-const toast= useToast();
-const selectedFlag=ref('');
 
 
 
@@ -49,8 +46,9 @@ function success(){
 
 function selectFlag(name,svg){
 
-    this.selectedFlag=svg
-    this.form.svg=svg
+    console.log("PPP");
+    selectedFlag.value=svg
+    form.svg=svg
 
 }
 function removeFlag(){
