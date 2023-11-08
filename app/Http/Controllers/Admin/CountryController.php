@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CountryRequest;
+use App\Models\Category;
 use App\Models\Country;
+use App\Models\State;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -37,6 +41,28 @@ class CountryController extends Controller
         return Inertia::render('Country/create',['flag'=>json_decode($json)]);
     }
 
+    public function edit($id){
+        $json = \Illuminate\Support\Facades\File::get('flagpack.json');
+        $country=Country::find($id);
+
+        return Inertia::render('Country/edit',['flag'=>json_decode($json),'country'=>$country]);
+    }
+
+    public function update(CountryRequest $request){
+
+
+
+
+        $country=Country::FindOrFail($request->id);
+        $country->name=$request->name;
+        $country->slug=Str::slug($request->name);
+        $country->svg=$request->svg;
+        $country->save();
+
+        return to_route('country.edit',['id'=>$request->id])->with('message','Country successfully Update');
+
+    }
+
     /**
      * @param CountryRequest $request
      * @return \Illuminate\Http\RedirectResponse
@@ -59,24 +85,12 @@ class CountryController extends Controller
      */
     public function changeStatus(Request $request)
     {
-        $id='';
-        $status='';
 
-        foreach ($request->status as $key=>$value){
-
-            if(!is_null($value)){
-                $id=$key;
-                $status=$value;
-
-            }
-
-        }
-
-
-        $country= Country::findOrFail($id);
-        $country->is_active=$status;
+        $country = Country::findOrFail($request->id);
+        $country->is_active = $request->status[0]['value'];
         $country->save();
-        return to_route('country.index')->with('message','counter status updated');
+
+        return to_route('country.index')->with('message','Country Status Updated');
 
 
     }

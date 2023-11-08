@@ -14,6 +14,7 @@ import {storeToRefs} from "pinia";
 
 const {mode} = storeToRefs(useCommonStore());
 
+const baseUrl='/images/'
 
 const showingNavigationDropdown = ref(false);
 const {addMode} = useCommonStore()
@@ -59,8 +60,8 @@ const [show] = useAutoAnimate({
                         </svg>
                     </button>
                     <a href="https://flowbite.com" class="flex ml-2 md:mr-24">
-                        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo"/>
-                        <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+                        <img :src="baseUrl+'new-logo.png'" class="h-8 mr-3" alt="City Group"/>
+                        <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"></span>
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -334,7 +335,7 @@ const [show] = useAutoAnimate({
 
                         <svg class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24"><path fill="#888888" fillRule="evenodd" d="M9.944 1.25H10a.75.75 0 0 1 0 1.5c-1.907 0-3.261.002-4.29.14c-1.005.135-1.585.389-2.008.812c-.423.423-.677 1.003-.812 2.009c-.138 1.028-.14 2.382-.14 4.289a.75.75 0 0 1-1.5 0v-.056c0-1.838 0-3.294.153-4.433c.158-1.172.49-2.121 1.238-2.87c.749-.748 1.698-1.08 2.87-1.238c1.14-.153 2.595-.153 4.433-.153Zm8.345 1.64c-1.027-.138-2.382-.14-4.289-.14a.75.75 0 0 1 0-1.5h.056c1.838 0 3.294 0 4.433.153c1.172.158 2.121.49 2.87 1.238c.748.749 1.08 1.698 1.238 2.87c.153 1.14.153 2.595.153 4.433V10a.75.75 0 0 1-1.5 0c0-1.907-.002-3.261-.14-4.29c-.135-1.005-.389-1.585-.812-2.008c-.423-.423-1.003-.677-2.009-.812ZM9.497 6.28c-.21-.028-.504-.03-.997-.03c-.728 0-1.2.002-1.546.048c-.325.044-.427.115-.484.172c-.057.057-.128.159-.172.484c-.046.347-.048.818-.048 1.546c0 .493.002.787.03.997a.706.706 0 0 0 .042.177l.001.003l.003.001a.706.706 0 0 0 .177.042c.21.028.504.03.997.03h1c.493 0 .787-.002.997-.03a.706.706 0 0 0 .177-.042l.003-.001l.001-.003a.706.706 0 0 0 .042-.177c.028-.21.03-.504.03-.997v-1c0-.493-.002-.787-.03-.997a.706.706 0 0 0-.037-.167l-.002-.004l-.003-.006l-.001-.003l-.003-.001a.706.706 0 0 0-.177-.042Zm.2-1.487c.356.048.731.16 1.04.47c.31.309.422.684.47 1.04c.043.323.043.72.043 1.152v1.09c0 .433 0 .83-.043 1.152c-.048.356-.16.731-.47 1.04c-.309.31-.684.422-1.04.47c-.323.043-.72.043-1.152.043h-1.09c-.433 0-.83 0-1.152-.043c-.356-.048-.731-.16-1.04-.47c-.31-.309-.422-.684-.47-1.04c-.043-.323-.043-.72-.043-1.152V8.45c0-.664 0-1.237.062-1.696c.066-.491.215-.963.597-1.345s.854-.531 1.345-.597c.459-.062 1.032-.062 1.697-.062h.094c.433 0 .83 0 1.152.043Zm5.758-.043h.094c.665 0 1.238 0 1.697.062c.492.066.963.215 1.345.597s.531.854.597 1.345c.062.459.062 1.032.062 1.697v.094c0 .433 0 .83-.043 1.152c-.048.356-.16.731-.47 1.04c-.309.31-.684.422-1.04.47c-.323.043-.72.043-1.152.043h-1.09c-.433 0-.83 0-1.152-.043c-.356-.048-.731-.16-1.04-.47c-.31-.309-.422-.684-.47-1.04c-.043-.323-.043-.72-.043-1.152v-1.09c0-.433 0-.83.043-1.152c.048-.356.16-.731.47-1.04c.309-.31.684-.422 1.04-.47c.323-.043.72-.043 1.152-.043Zm-1.13 1.572l-.002.001l-.001.003a.703.703 0 0 0-.042.177c-.028.21-.03.504-.03.997v1c0 .493.002.787.03.997a.704.704 0 0 0 .042.177l.001.003l.003.001a.705.705 0 0 0 .177.042c.21.028.504.03.997.03h1c.493 0 .787-.002.997-.03a.705.705 0 0 0 .177-.042l.003-.001l.001-.003a.703.703 0 0 0 .042-.177c.028-.21.03-.504.03-.997c0-.728-.002-1.2-.048-1.546c-.044-.325-.115-.427-.172-.484c-.057-.057-.159-.128-.484-.172c-.347-.046-.818-.048-1.546-.048c-.493 0-.787.002-.997.03a.705.705 0 0 0-.167.037l-.005.002a.169.169 0 0 0-.005.003Zm-6.87 6.428h1.09c.433 0 .83 0 1.152.043c.356.048.731.16 1.04.47c.31.309.422.684.47 1.04c.043.323.043.72.043 1.152v1.09c0 .433 0 .83-.043 1.152c-.048.356-.16.731-.47 1.04c-.309.31-.684.422-1.04.47c-.323.043-.72.043-1.152.043H8.45c-.665 0-1.238 0-1.697-.062c-.491-.066-.963-.215-1.345-.597s-.531-.854-.597-1.345c-.062-.459-.062-1.032-.062-1.697v-.094c0-.433 0-.83.043-1.152c.048-.356.16-.731.47-1.04c.309-.31.684-.422 1.04-.47c.323-.043.72-.043 1.152-.043Zm-1.13 1.572l-.002.001l-.001.003a.705.705 0 0 0-.042.177c-.028.21-.03.504-.03.997c0 .728.002 1.2.048 1.546c.044.325.115.427.172.484c.057.057.159.128.484.172c.347.046.818.048 1.546.048c.493 0 .787-.002.997-.03a.703.703 0 0 0 .177-.042l.003-.001l.001-.003a.705.705 0 0 0 .042-.177c.028-.21.03-.504.03-.997v-1c0-.493-.002-.787-.03-.997a.705.705 0 0 0-.042-.177l-.001-.003l-.003-.001a.704.704 0 0 0-.177-.042c-.21-.028-.504-.03-.997-.03h-1c-.493 0-.787.002-.997.03a.703.703 0 0 0-.177.042Zm9.13-1.572h1.09c.433 0 .83 0 1.152.043c.356.048.731.16 1.04.47c.31.309.422.684.47 1.04c.043.323.043.72.043 1.152v.094c0 .665 0 1.238-.062 1.697c-.066.492-.215.963-.597 1.345s-.854.531-1.345.597c-.459.062-1.032.062-1.697.062h-.094c-.433 0-.83 0-1.152-.043c-.356-.048-.731-.16-1.04-.47c-.31-.309-.422-.684-.47-1.04c-.043-.323-.043-.72-.043-1.152v-1.09c0-.433 0-.83.043-1.152c.048-.356.16-.731.47-1.04c.309-.31.684-.422 1.04-.47c.323-.043.72-.043 1.152-.043Zm-1.13 1.572l-.002.001l-.001.003l-.002.004l-.003.006a.702.702 0 0 0-.037.167c-.028.21-.03.504-.03.997v1c0 .493.002.787.03.997a.702.702 0 0 0 .04.174l.002.003l.001.003l.003.001a.702.702 0 0 0 .177.042c.21.028.504.03.997.03c.728 0 1.2-.002 1.546-.048c.325-.044.427-.115.484-.172c.057-.057.128-.159.172-.484c.046-.347.048-.818.048-1.546c0-.493-.002-.787-.03-.997a.702.702 0 0 0-.042-.177l-.001-.003l-.003-.001a.702.702 0 0 0-.177-.042c-.21-.028-.504-.03-.997-.03h-1c-.493 0-.787.002-.997.03a.702.702 0 0 0-.177.042ZM2 13.25a.75.75 0 0 1 .75.75c0 1.907.002 3.262.14 4.29c.135 1.005.389 1.585.812 2.008c.423.423 1.003.677 2.009.812c1.028.138 2.382.14 4.289.14a.75.75 0 0 1 0 1.5h-.056c-1.838 0-3.294 0-4.433-.153c-1.172-.158-2.121-.49-2.87-1.238c-.748-.749-1.08-1.698-1.238-2.87c-.153-1.14-.153-2.595-.153-4.433V14a.75.75 0 0 1 .75-.75Zm20 0a.75.75 0 0 1 .75.75v.056c0 1.838 0 3.294-.153 4.433c-.158 1.172-.49 2.121-1.238 2.87c-.749.748-1.698 1.08-2.87 1.238c-1.14.153-2.595.153-4.433.153H14a.75.75 0 0 1 0-1.5c1.907 0 3.262-.002 4.29-.14c1.005-.135 1.585-.389 2.008-.812c.423-.423.677-1.003.812-2.009c.138-1.027.14-2.382.14-4.289a.75.75 0 0 1 .75-.75Z" clipRule="evenodd"></path></svg>
 
-                        <span class="ml-3">Dashboard</span>
+                        <Link :href="route('dashboard')" class="ml-3">Dashboard</Link>
                     </a>
                 </li>
                 <li>
@@ -342,7 +343,9 @@ const [show] = useAutoAnimate({
 
                         <svg class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><path fill="#888888" d="M117.25 157.92a60 60 0 1 0-66.5 0a95.83 95.83 0 0 0-47.22 37.71a8 8 0 1 0 13.4 8.74a80 80 0 0 1 134.14 0a8 8 0 0 0 13.4-8.74a95.83 95.83 0 0 0-47.22-37.71ZM40 108a44 44 0 1 1 44 44a44.05 44.05 0 0 1-44-44Zm210.14 98.7a8 8 0 0 1-11.07-2.33A79.83 79.83 0 0 0 172 168a8 8 0 0 1 0-16a44 44 0 1 0-16.34-84.87a8 8 0 1 1-5.94-14.85a60 60 0 0 1 55.53 105.64a95.83 95.83 0 0 1 47.22 37.71a8 8 0 0 1-2.33 11.07Z"></path></svg>
 
+                        <Link class="ml-3" :href="route('user.index')">
                         <span class="ml-3">User</span>
+                        </Link>
                     </a>
                 </li>
 
@@ -354,40 +357,51 @@ const [show] = useAutoAnimate({
                         </Link>
                     </a>
                 </li>
+
                 <li>
-                    <button type="button"
-                            class="flex items-center w-full p-2 text-base text-gray-500 font-bold  rounded-lg group hover:bg-gray-100 hover:duration-500  hover:delay-300 hover:text-purple-500 dark:text-white dark:hover:bg-gray-700"
-                            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="text-2xl"
-                             viewBox="0 0 256 256">
-                            <path fill="currentColor"
-                                  d="M236 69.4a16.13 16.13 0 0 0-12.08-5.4H176a48 48 0 0 0-96 0H32.08a16.13 16.13 0 0 0-12 5.4a16 16 0 0 0-3.92 12.48l14.26 120a16 16 0 0 0 16 14.12h163.25a16 16 0 0 0 16-14.12l14.26-120A16 16 0 0 0 236 69.4ZM128 32a32 32 0 0 1 32 32H96a32 32 0 0 1 32-32Zm81.76 168a.13.13 0 0 1-.09 0H46.25L32.08 80H80v24a8 8 0 0 0 16 0V80h64v24a8 8 0 0 0 16 0V80h48Z"></path>
-                        </svg>
-                        <span class="flex-1 ml-3 text-left whitespace-nowrap">E-commerce</span>
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                             viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="m1 1 4 4 4-4"/>
-                        </svg>
-                    </button>
-                    <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                        <li>
-                            <a href="#"
-                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Billing</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>
-                        </li>
-                    </ul>
+                    <a href="#" class="navCus group font-rubik">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24"><path fill="#888888" d="M16.95 11.95a6.996 6.996 0 0 0 1.858-6.582l2.495-1.07a.5.5 0 0 1 .697.46V19l-7 3l-6-3l-6.303 2.701a.5.5 0 0 1-.697-.46V7l3.129-1.341a6.993 6.993 0 0 0 1.921 6.29L12 16.9l4.95-4.95Zm-1.414-1.414L12 14.07l-3.536-3.535a5 5 0 1 1 7.072 0Z"></path></svg>
+                        <Link class="ml-3" :href="route('state.index')">
+                            States
+                        </Link>
+                    </a>
                 </li>
-                <li class="transition duration-300 delay-150  hover:text-purple-700">
-                    Demo
-                </li>
+
+
+
+
+<!--                <li>-->
+<!--                    <button type="button"-->
+<!--                            class="flex items-center w-full p-2 text-base text-gray-500 font-bold  rounded-lg group hover:bg-gray-100 hover:duration-500  hover:delay-300 hover:text-purple-500 dark:text-white dark:hover:bg-gray-700"-->
+<!--                            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="text-2xl"-->
+<!--                             viewBox="0 0 256 256">-->
+<!--                            <path fill="currentColor"-->
+<!--                                  d="M236 69.4a16.13 16.13 0 0 0-12.08-5.4H176a48 48 0 0 0-96 0H32.08a16.13 16.13 0 0 0-12 5.4a16 16 0 0 0-3.92 12.48l14.26 120a16 16 0 0 0 16 14.12h163.25a16 16 0 0 0 16-14.12l14.26-120A16 16 0 0 0 236 69.4ZM128 32a32 32 0 0 1 32 32H96a32 32 0 0 1 32-32Zm81.76 168a.13.13 0 0 1-.09 0H46.25L32.08 80H80v24a8 8 0 0 0 16 0V80h64v24a8 8 0 0 0 16 0V80h48Z"></path>-->
+<!--                        </svg>-->
+<!--                        <span class="flex-1 ml-3 text-left whitespace-nowrap">E-commerce</span>-->
+<!--                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"-->
+<!--                             viewBox="0 0 10 6">-->
+<!--                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"-->
+<!--                                  d="m1 1 4 4 4-4"/>-->
+<!--                        </svg>-->
+<!--                    </button>-->
+<!--                    <ul id="dropdown-example" class="hidden py-2 space-y-2">-->
+<!--                        <li>-->
+<!--                            <a href="#"-->
+<!--                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#"-->
+<!--                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Billing</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#"-->
+<!--                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+
             </ul>
         </div>
     </aside>

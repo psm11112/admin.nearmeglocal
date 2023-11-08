@@ -26,3 +26,5 @@ Route::post('/opt_verification', [\App\Http\Controllers\API\AuthController::clas
 Route::post('/logout',[\App\Http\Controllers\API\AuthController::class,'logout'])->name('logout');
 Route::get('/me', [\App\Http\Controllers\API\AuthController::class, 'me'])->name('me')->middleware('auth:sanctum');
 Route::get('/user/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getUser'])->name('user-view');
+Route::get('/country/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getCountry'])->name('country-view');
+Route::get('/state/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getStates'])->name('state-view');

@@ -25,7 +25,7 @@ class StatesController extends Controller
             'country'=>$country
         ]);
     }
-    public function store(Request $request){
+    public function store(StatesRequest $request){
 
 
         $stats=new State();
@@ -49,7 +49,7 @@ class StatesController extends Controller
 
     }
 
-    public function update(Request $request){
+    public function update(StatesRequest $request){
         $stats=State::FindOrFail($request->id);
         $stats->name=$request->name;
         $stats->sku=Str::slug($request->name);

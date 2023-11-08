@@ -8,6 +8,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { createPinia } from 'pinia'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import Toast from "vue-toastification";
+import { MotionPlugin } from '@vueuse/motion'
+
 
 
 // Import the CSS or use your own!
@@ -33,6 +35,7 @@ createInertiaApp({
             .use(pinia)
             .use(autoAnimatePlugin)
             .use(Toast, options)
+            .use(MotionPlugin)
 
 
             .mount(el);

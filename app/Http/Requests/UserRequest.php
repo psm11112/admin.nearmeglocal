@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Country;
-use App\Models\State;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StatesRequest extends FormRequest
+
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,11 @@ class StatesRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name' => ['required','string','max:255',
-                Rule::unique(State::class,'name')->ignore($this->id)]
-        ,
-            'country_id'=>['required']
+            'name'=>'required|string|max:255',
+             'email' => ['required','string','email',
+             Rule::unique(User::class,'email')->ignore($this->id)]
         ];
     }
 }

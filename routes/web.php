@@ -34,11 +34,13 @@ Route::get('/category',[CategoryController::class,'index'])->name('category');
 
 
 Route::controller(\App\Http\Controllers\Admin\CountryController::class)->group(function () {
-    Route::get('/orders/{id}', 'show');
-    Route::post('/orders', 'store');
+
+    Route::post('/country/update','update')->name('country.update');
     Route::get('/country','index')->name('country.index');
-    Route::post('/country/deleted','itemDeleted')->name('country.deleted');
     Route::get('/country/create','create')->name('country.create');
+    Route::get('/country/{id}','edit')->name('country.edit');
+    Route::post('/country/deleted','itemDeleted')->name('country.deleted');
+
     Route::post('/country/store','store')->name('country.store');
     Route::post('/country/change-status','changeStatus')->name('country.change-status');
 })->middleware(['auth', 'verified']);
@@ -59,6 +61,8 @@ Route::controller(\App\Http\Controllers\StatesController::class)->group(function
 
 Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
     Route::get('/user','index')->name('user.index');
+    Route::get('/user/{id}','edit')->name('user.edit');
+    Route::post('/user/update','update')->name('user.update');
     Route::post('/user/change-status','changeStatus')->name('user.change-status');
     Route::post('/user/deleted','itemDeleted')->name('user.delete');
 

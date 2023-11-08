@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CountryRequest extends FormRequest
 {
@@ -24,7 +28,11 @@ class CountryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string', 'max:255','unique:country']
-        ];
+
+            'name' => ['required','string','max:255',
+                Rule::unique(Country::class,'name')->ignore($this->id)]
+                ];
+
+
     }
 }

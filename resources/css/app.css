@@ -114,5 +114,14 @@
    dark:hover:bg-gray-700
    dark:hover:text-white
 }
+.editButton{
+    @apply bg-purple-600 p-2 rounded-full text-white font-bold right-2 hover:animate-bounce dark:bg-blue-500
+}
+.viewButton{
+    @apply bg-amber-600 p-2 rounded-full text-white font-bold right-2 hover:animate-bounce dark:bg-blue-500
+}
+.deleteButton{
+    @apply  bg-rose-600 p-2 rounded-full text-white font-bold right-2 hover:animate-bounce dark:bg-blue-500
+}
 
 

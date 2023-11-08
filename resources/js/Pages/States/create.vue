@@ -7,11 +7,26 @@ import ToastMessage from "@/Components/Totast.vue";
 import { useToast } from "vue-toastification";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ErrorMessage from '@/Components/Error.vue'
+import Breadcrumb from '@/Components/Breadcrumb.vue'
 
 
 const props=defineProps({
     country:[]
 })
+
+const breadcrumbList=[
+    {
+        name:'States',
+        url:route('state.index'),
+        active:true
+    },
+    {
+        name:'Create',
+        url:'',
+        active:false
+    },
+
+]
 const form = useForm({
     name: null,
     country_id:null
@@ -46,6 +61,7 @@ function submit(){
         </template>
 
         <div class="py-5 h-auto">
+            <Breadcrumb :data="breadcrumbList"></Breadcrumb>
             <div class="my-12 mx-auto  md:px-12  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
                 <form @submit.prevent="submit" >
