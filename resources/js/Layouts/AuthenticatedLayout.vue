@@ -7,18 +7,20 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import {Link} from '@inertiajs/vue3';
 import {useAutoAnimate} from '@formkit/auto-animate/vue'
-
 import {useCommonStore} from '@/stores/common'
 import {storeToRefs} from "pinia";
 
+import { onMounted } from 'vue'
+import { initFlowbite } from 'flowbite'
 
 const {mode} = storeToRefs(useCommonStore());
-
 const baseUrl='/images/'
-
-const showingNavigationDropdown = ref(false);
 const {addMode} = useCommonStore()
 
+
+onMounted(() => {
+    initFlowbite();
+})
 
 
 function changeMode(value) {
