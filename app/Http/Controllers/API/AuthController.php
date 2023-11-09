@@ -58,6 +58,14 @@ class AuthController extends ResponseController
         ]);
          $user=User::where('email',$request->email)->first();
 
+         if(is_null($user)){
+             return response()->json([
+                 'message' => 'Your Account Not Found'
+             ], 404);
+
+         }
+
+
          if(is_null($user->email_verified_at)){
              return response()->json([
                  'message' => 'Your Account Not Verified'
@@ -72,6 +80,8 @@ class AuthController extends ResponseController
                 'message' => 'Invalid login details'
             ], 401);
         }
+
+        return $this->sendResponse($user,'Successfully Login',200);
 
     }
 
