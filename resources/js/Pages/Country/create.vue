@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import ToastMessage from '@/Components/Totast.vue'
+import ToastMessage from '@/helper/ToastMessage.js'
 import { useForm } from '@inertiajs/vue3'
 import { Head } from '@inertiajs/vue3';
 import { useToast } from "vue-toastification";
@@ -39,14 +39,11 @@ const form = useForm({
 
 function success(){
     form.reset('name');
-    toast.success(ToastMessage,{
-        icon: false,
-    })
+    ToastMessage()
+
 }
 
 function selectFlag(name,svg){
-
-    console.log("PPP");
     selectedFlag.value=svg
     form.svg=svg
 

@@ -19,9 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/login', [\App\Http\Controllers\API\AuthController::class, 'login'])->name('login');
-Route::post('/register', [\App\Http\Controllers\API\AuthController::class, 'register'])->name('register');
-Route::post('/opt_verification', [\App\Http\Controllers\API\AuthController::class, 'opt_verification'])->name('opt_verification');
+Route::post('/login', [\App\Http\Controllers\API\AuthController::class, 'login'])->name('login')->middleware('cors');
+Route::post('/register', [\App\Http\Controllers\API\AuthController::class, 'register'])->name('register')->middleware('cors');;
+Route::post('/opt_verification', [\App\Http\Controllers\API\AuthController::class, 'opt_verification'])->name('opt_verification')->middleware('cors');;
 
 Route::post('/logout',[\App\Http\Controllers\API\AuthController::class,'logout'])->name('logout');
 Route::get('/me', [\App\Http\Controllers\API\AuthController::class, 'me'])->name('me')->middleware('auth:sanctum');

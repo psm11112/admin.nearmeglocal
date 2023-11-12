@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Mail\SendOtpVerification;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,9 +37,15 @@ class AuthController extends ResponseController
             'opt_number'=>$randomNumber
         ]);
 
+        $setting=Setting::where('field','email_verification')->first();
 
-       Mail::to('demo@gmail.com')->send(new SendOtpVerification($user));
 
+       if($setting->value){
+           Mail::to('demo@gmail.com')->send(new SendOtpVerification($user));
+       }
+
+
+        $user['email_verification']=$setting->value;
 
         return $this->sendResponse($user,'User Successfully Register',200);
 
@@ -57,6 +64,7 @@ class AuthController extends ResponseController
             'password' => ['required'],
         ]);
          $user=User::where('email',$request->email)->first();
+        $setting=Setting::where('field','email_verification')->first();
 
          if(is_null($user)){
              return response()->json([
@@ -66,12 +74,16 @@ class AuthController extends ResponseController
          }
 
 
-         if(is_null($user->email_verified_at)){
-             return response()->json([
-                 'message' => 'Your Account Not Verified'
-             ], 401);
 
+         if($setting->value){
+             if(is_null($user->email_verified_at)){
+                 return response()->json([
+                     'message' => 'Your Account Not Verified'
+                 ], 401);
+
+             }
          }
+
 
 
         if (!Auth::attempt($request->only('email', 'password'))) {
@@ -81,6 +93,10 @@ class AuthController extends ResponseController
             ], 401);
         }
 
+
+      //  $user['token'] = $user->createToken('MyToken')->accessToken;
+
+        $user['email_verification']=$setting->value;
         return $this->sendResponse($user,'Successfully Login',200);
 
     }

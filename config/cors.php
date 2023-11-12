@@ -19,7 +19,8 @@ return [
         'public/js/uikit.min.js',
         'public/js/simplebar.js',
         'public/js/script.js',
-        'api/register'
+        'api/register',
+        'build/*'
     ],
 
     'allowed_methods' => ['*'],

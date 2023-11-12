@@ -71,6 +71,16 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
 });
 
 
+Route::controller(\App\Http\Controllers\SettingController::class)->group(function () {
+    Route::get('/setting','index')->name('setting.index');
+    Route::post('setting/store','store')->name('setting.store');
+
+
+
+
+});
+
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
