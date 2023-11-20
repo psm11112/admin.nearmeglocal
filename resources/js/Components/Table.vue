@@ -2,7 +2,7 @@
 import {defineEmits, defineProps, ref} from "vue";
 import Image from "@/Components/Image.vue"
 import ToggleButton from "@/Components/ToggleButton.vue"
-import {useForm,Link} from "@inertiajs/vue3";
+import {useForm,Link,usePage} from "@inertiajs/vue3";
 import ToastMessageNotification from "@/helper/ToastMessage";
 const baseUrl='/storage/';
 
@@ -79,7 +79,7 @@ function deleteItem(id){
 
                     <span v-if="item.url==null"></span>
                     <span v-if="item.image_url!==null">
-                        <Image v-if="imageDisplay"  :url="baseUrl+item.image_url" :name="item.name"></Image>
+                        <Image v-if="imageDisplay"  :url="usePage().props.path.public+item.image_url" :name="item.name"></Image>
                        <span v-if="svg" v-html="item.svg" class="text-2xl"></span>
                     </span>
 

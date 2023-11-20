@@ -2,7 +2,7 @@
 import Dropdown from 'primevue/dropdown';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import {ref, watch} from 'vue'
-import { useForm } from '@inertiajs/vue3'
+import { useForm,usePage } from '@inertiajs/vue3'
 import ToastMessage from "@/helper/ToastMessage";
 import ErrorMessage from '@/Components/Error.vue'
 import Image from '@/Components/Image.vue'
@@ -17,7 +17,7 @@ const props=defineProps({
     category:[]
 })
 
-const baseUrl='/storage/';
+
 
 const image=ref('');
 const hidden=ref(true);
@@ -178,7 +178,7 @@ function deleteImage(){
 
                         <div class="relative me-4">
 
-                            <img v-if="image.length<1 && form.old_image"  :src="baseUrl+form.old_image" class="rounded-lg w-24" title="preview">
+                            <img v-if="image.length<1 && form.old_image"  :src="usePage().props.path.public+viewData.image_url+form.old_image" class="rounded-lg w-24" title="preview">
 
                             <span class="top-0   absolute w-4.5 h-4.5 ">
                                 <svg @click="deleteImage" class="text-sm font-bold hover:cursor-pointer hover:bg-indigo-400" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="#00000" d="M168.49 104.49L145 128l23.52 23.51a12 12 0 0 1-17 17L128 145l-23.51 23.52a12 12 0 0 1-17-17L111 128l-23.49-23.51a12 12 0 0 1 17-17L128 111l23.51-23.52a12 12 0 0 1 17 17ZM236 128A108 108 0 1 1 128 20a108.12 108.12 0 0 1 108 108Zm-24 0a84 84 0 1 0-84 84a84.09 84.09 0 0 0 84-84Z"></path></svg>

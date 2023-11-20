@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import Pagination from '@/Components/Pagination.vue'
 import Table from '@/Components/Table.vue'
-import {useForm,Link} from "@inertiajs/vue3";
+import {useForm,Link,usePage} from "@inertiajs/vue3";
 import {ref} from "vue";
 import Image from "@/Components/Image.vue";
 import Search from '@/Components/Search.vue';
@@ -117,8 +117,10 @@ function changeTerm(term){
 
             </div>
 
+
+
             <div class="flex flex-col items-center pb-10 space-y-2">
-                <Image v-if="viewData.image_url!==null"  :url="baseUrl+viewData.image_url" :name="viewData.name"></Image>
+                <Image v-if="viewData.image_url!==null"  :url="usePage().props.path.public+viewData.image_url" :name="viewData.name"></Image>
                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{viewData.name}}</h5>
                 <div class="flex space-x-2 ">
                 <svg  xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="#888888" d="M168 116h48a20 20 0 0 0 20-20V48a20 20 0 0 0-20-20h-48a20 20 0 0 0-20 20v12h-4a36 36 0 0 0-36 36v20H84v-4a20 20 0 0 0-20-20H32a20 20 0 0 0-20 20v32a20 20 0 0 0 20 20h32a20 20 0 0 0 20-20v-4h24v20a36 36 0 0 0 36 36h4v12a20 20 0 0 0 20 20h48a20 20 0 0 0 20-20v-48a20 20 0 0 0-20-20h-48a20 20 0 0 0-20 20v12h-4a12 12 0 0 1-12-12V96a12 12 0 0 1 12-12h4v12a20 20 0 0 0 20 20ZM60 140H36v-24h24Zm112 24h40v40h-40Zm0-112h40v40h-40Z" ></path></svg>

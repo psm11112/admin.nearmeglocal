@@ -41,7 +41,10 @@ class HandleInertiaRequests extends Middleware
             },
             'flash' => [
                 'message' => fn () => $request->session()->get('message')
-            ]
+            ],
+           'path'=>[
+               'public'=> config('app.image_url'),
+           ],
         ]);
     }
 }
