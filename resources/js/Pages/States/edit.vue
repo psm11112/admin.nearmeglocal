@@ -58,12 +58,10 @@ function submit(){
 
     <Head title="Create States"/>
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Add New States</h2>
-        </template>
-
         <div class="py-5 h-auto">
+            <div class="formTitle">Add New States</div>
             <Breadcrumb :data="breadcrumbList"></Breadcrumb>
+
             <div class="my-12 mx-auto  md:px-12  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
                 <form @submit.prevent="submit" >

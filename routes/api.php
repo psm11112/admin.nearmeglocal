@@ -28,3 +28,5 @@ Route::get('/me', [\App\Http\Controllers\API\AuthController::class, 'me'])->name
 Route::get('/user/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getUser'])->name('user-view');
 Route::get('/country/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getCountry'])->name('country-view');
 Route::get('/state/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getStates'])->name('state-view');
+Route::get('/category/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getCategory'])->name('category-view');
+Route::get('/sub-category/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getSubCategory'])->name('sub-category-view');

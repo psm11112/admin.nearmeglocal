@@ -72,10 +72,6 @@ function closeShowView(){
 
     <Head title="Country"/>
     <AuthenticatedLayout>
-
-            <template #header>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Country</h2>
-            </template>
         <span class="formTitle">Country</span>
             <div class="py-5">
                 <Breadcrumb :data="breadcrumbList"></Breadcrumb>

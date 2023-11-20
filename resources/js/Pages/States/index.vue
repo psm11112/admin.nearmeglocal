@@ -76,12 +76,7 @@ function closeShowView(){
 
     <Head title="States"/>
     <AuthenticatedLayout>
-
-
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">States</h2>
-        </template>
-        <span class="formTitle">States</span>
+        <div class="formTitle">States</div>
         <div class="py-5">
 
 

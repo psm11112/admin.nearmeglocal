@@ -28,10 +28,35 @@ Route::get('/', function () {
 
 Route::get('/demo',[\App\Http\Controllers\DemoController::class,'index'])->name('index');
 
-Route::post('/category/create',[CategoryController::class,'store'])->name('category.store');
-Route::get('/category',[CategoryController::class,'index'])->name('category');
 
 
+Route::controller(\App\Http\Controllers\CategoryController::class)->group(function () {
+
+    Route::get('/category','index')->name('category.index');
+    Route::post('/category/store','store')->name('category.store');
+    Route::get('/category/create','create')->name('category.create');
+    Route::post('/category/deleted','itemDeleted')->name('category.deleted');
+    Route::post('/category/change-status','changeStatus')->name('category.change-status');
+    Route::get('/category/{id}','edit')->name('category.edit');
+    Route::post('/category/delete-image','deleteImage')->name('category.delete-image');
+    Route::post('/category/update','update')->name('category.update');
+
+
+})->middleware(['auth', 'verified']);
+
+Route::controller(\App\Http\Controllers\SubCategoryController::class)->group(function () {
+
+    Route::get('/sub-category','index')->name('sub-category.index');
+    Route::post('/sub-category/store','store')->name('sub-category.store');
+    Route::get('/sub-category/create','create')->name('sub-category.create');
+    Route::post('/sub-category/deleted','itemDeleted')->name('sub-category.deleted');
+    Route::post('/sub-category/change-status','changeStatus')->name('sub-category.change-status');
+    Route::get('/sub-category/{id}','edit')->name('sub-category.edit');
+    Route::post('/sub-category/delete-image','deleteImage')->name('sub-category.delete-image');
+    Route::post('/sub-category/update','update')->name('sub-category.update');
+
+
+})->middleware(['auth', 'verified']);
 
 Route::controller(\App\Http\Controllers\Admin\CountryController::class)->group(function () {
 
@@ -91,6 +116,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get("/admin-login",[\App\Http\Controllers\DashbordController::class,'loginDirect'])->name('admin.dashbord');
 
 
 require __DIR__.'/auth.php';

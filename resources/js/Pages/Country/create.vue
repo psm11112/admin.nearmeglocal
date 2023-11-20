@@ -1,8 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import ToastMessage from '@/helper/ToastMessage.js'
-import { useForm } from '@inertiajs/vue3'
-import { Head } from '@inertiajs/vue3';
+import { useForm,Head } from '@inertiajs/vue3'
 import { useToast } from "vue-toastification";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ErrorMessage from '@/Components/Error.vue'
@@ -61,9 +60,7 @@ function removeFlag(){
 
     <Head title="Country Create"/>
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Add New Country</h2>
-        </template>
+        <div class="titleText">Add New Country</div>
 
             <div class="py-5">
                 <Breadcrumb :data="breadcrumbList"></Breadcrumb>

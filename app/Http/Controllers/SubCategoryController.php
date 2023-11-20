@@ -3,53 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
-use App\Http\Requests\StatesRequest;
+use App\Http\Requests\SubCategoryRequest;
 use App\Models\Category;
-use App\Models\Country;
-use App\Models\State;
-use App\Models\User;
+use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
-
     protected $modelName='';
     protected $routeName='';
 
     public function __construct()
     {
-        $this->modelName = 'category';
-        $this->routeName='category';
+        $this->modelName = 'subCategory';
+        $this->routeName='sub-category';
 
     }
     public function index(Request $request){
-        $category=Category::when($request->term,function($query) use ($request)  {
+        $category=SubCategory::with('ParentCategory')->when($request->term,function($query) use ($request)  {
             $query->where('name','like','%'.$request->term.'%');
         })->paginate(config('service.pagination'))->withQueryString();
-        return Inertia::render('Category/index',['category'=>$category]);
+
+        return Inertia::render('SubCategory/index',['subCategory'=>$category]);
     }
     public function create(){
+        $category=Category::select('id','name')->get();
 
-        return Inertia::render('Category/create');
+        return Inertia::render('SubCategory/create',['category'=>$category]);
     }
 
-    public function store(CategoryRequest $request){
-
+    public function store(SubCategoryRequest $request){
         $image_path=null;
 
         if ($request->hasFile('photo')) {
 
-            $image_path = $request->file('photo')->store('image', 'public');
+            $image_path = $request->file('photo')->store('image/sub-category', 'public');
         }
 
-        $this->modelName=new Category();
+        $this->modelName=new SubCategory();
         $this->modelName->name=$request->name;
+        $this->modelName->category_id=$request->category_id;
         $this->modelName->sku=$request->sku;
-        $this->modelName->description=$request->description;
         $this->modelName->image_url=$image_path;
         $this->modelName->save();
 
@@ -60,24 +57,25 @@ class CategoryController extends Controller
     public function edit($id){
 
 
-        $this->modelName=Category::FindOrFail($id);
-//        $country=Country::all();
+        $this->modelName=SubCategory::FindOrFail($id);
+        $category=Category::select('id','name')->get();
 
-
-        return Inertia::render('Category/edit',[
-            'category'=>$this->modelName,
+        return Inertia::render('SubCategory/edit',[
+            'subCategory'=>$this->modelName,
+            'category'=>$category
 
         ]);
 
 
     }
 
-    public function update(CategoryRequest $request){
+    public function update(Request $request){
 
 
+
+        $this->modelName= SubCategory::FindOrFail($request->id);
 
         $image_path=null;
-        $this->modelName= Category::FindOrFail($request->id);
 
         if ($request->hasFile('photo')) {
 
@@ -85,7 +83,7 @@ class CategoryController extends Controller
                 Storage::disk('public')->delete($this->modelName->image_url);
             }
 
-            $image_path = $request->file('photo')->store('image', 'public');
+            $image_path = $request->file('photo')->store('image/sub-category', 'public');
         }
 
         if(!is_null($image_path)){
@@ -98,16 +96,19 @@ class CategoryController extends Controller
             }
         }
 
+        $this->modelName= SubCategory::FindOrFail($request->id);
+        $this->modelName->category_id =$request->category_id;
         $this->modelName->name=$request->name;
         $this->modelName->sku=$request->sku;
-        $this->modelName->description=$request->description;
-
+       // $this->modelName->description=$request->description;
 
         $this->modelName->image_url=$imageUrl;
 
         $this->modelName->save();
 
-        return to_route($this->routeName.'.edit',['id'=>$request->id])->with('message',$this->routeName.' Successfully Added');
+
+
+        return to_route($this->routeName.'.edit',['id'=>$request->id])->with('message',$this->routeName.' Successfully Updated');
 
 
     }
@@ -116,7 +117,7 @@ class CategoryController extends Controller
     public function changeStatus(Request $request)
     {
 
-        $this->modelName = Category::findOrFail($request->id);
+        $this->modelName = SubCategory::findOrFail($request->id);
         $this->modelName->is_active = $request->status[0]['value'];
         $this->modelName->save();
         return to_route($this->routeName.'.index')->with('message',  $this->routeName.' status updated');
@@ -126,7 +127,7 @@ class CategoryController extends Controller
 
     public function itemDeleted(Request $request){
 
-        $this->modelName=Category::findOrFail($request->id);
+        $this->modelName=SubCategory::findOrFail($request->id);
 
         if(!is_null($this->modelName->image_url)){
             Storage::disk('public')->delete($this->modelName->image_url);
@@ -140,13 +141,12 @@ class CategoryController extends Controller
     public function deleteImage(Request $request){
 
         Storage::disk('public')->delete($request->photo);
-        $this->modelName=Category::findOrFail($request->id);
+        $this->modelName=SubCategory::findOrFail($request->id);
         $this->modelName->image_url=null;
         $this->modelName->save();
 
         return to_route($this->routeName.'.edit',['id'=>$request->id])->with('message',$this->routeName.' Images Removed');
 
     }
-
 
 }

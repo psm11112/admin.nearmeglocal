@@ -9,7 +9,7 @@ import Search from '@/Components/Search.vue';
 import Breadcrumb from "@/Components/Breadcrumb.vue"
 
 const props=defineProps({
-    'category':[]
+    'subCategory':[]
 })
 
 const baseUrl='/storage/';
@@ -19,8 +19,8 @@ const form = useForm({
 
 const breadcrumbList=[
     {
-        name:'Category',
-        url:route('category.index'),
+        name:'Sub Category',
+        url:route('sub-category.index'),
         active:true
     },
 ]
@@ -31,7 +31,7 @@ let viewData=ref(null);
 
 function showView(id){
     hidden.value = hidden.value ? false:true
-    axios.get('/api/category/view/'+id).then((res)=>{
+    axios.get('/api/sub-category/view/'+id).then((res)=>{
         viewData.value=res.data;
     });
 
@@ -43,7 +43,7 @@ function closeShowView(){
 function changeTerm(term){
 
     form.term=term
-    form.get(route('category.index'),{
+    form.get(route('sub-category.index'),{
         preserveState:true,
         preserveScroll:true,
     })
@@ -56,7 +56,7 @@ function changeTerm(term){
 <Head title="Country"/>
 <AuthenticatedLayout>
 
-<div class="formTitle">Category</div>
+<div class="formTitle">Sub Category</div>
 <div class="py-5">
     <Breadcrumb :data="breadcrumbList"></Breadcrumb>
     <div class="relative overflow-x-auto rounded-lg shadow-lg  sm:rounded-lg p-5">
@@ -65,8 +65,8 @@ function changeTerm(term){
 
                 <div class="flex justify-between w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <div>
-                        <Link :href="route('category.create')"   >
-                            <button class="formButton p-5" :disabled="form.processing" :class="form.processing?'cursor-not-allowed':''"> Add Category</button>
+                        <Link :href="route('sub-category.create')"    >
+                            <button class="formButton p-5" :disabled="form.processing" :class="form.processing?'cursor-not-allowed':''"> Add Sub Category</button>
                         </Link>
                     </div>
                     <Search @generalSearch="changeTerm" :process="form.processing" ></Search>
@@ -79,22 +79,22 @@ function changeTerm(term){
 
         </div>
 
-        <div class="flex justify-center" v-if="!form.processing && category.data.length" >
+        <div class="flex justify-center" v-if="!form.processing && subCategory.data.length" >
             <Table
                 :imageDisplay="true"
                 :svg="true"
-                :tableHeader="['','Name','Status','Action']"
-                :data="category"
+                :tableHeader="['','Category','Name','Status','Action']"
+                :data="subCategory"
                 @showView="showView"
-                :deleteRoute="route('category.deleted')"
-                :changeStatusRoute="route('category.change-status')"
-                :userEditName="/category/"
+                :deleteRoute="route('sub-category.deleted')"
+                :changeStatusRoute="route('sub-category.change-status')"
+                :userEditName="/sub-category/"
             ></Table>
 
         </div>
 
-        <div class="flex justify-center p-5 " v-if="category.data.length">
-            <Pagination :pages="category" ></Pagination>
+        <div class="flex justify-center p-5 " v-if="subCategory.data.length">
+            <Pagination :pages="subCategory" ></Pagination>
 
         </div>
     </div>
@@ -120,8 +120,11 @@ function changeTerm(term){
             <div class="flex flex-col items-center pb-10 space-y-2">
                 <Image v-if="viewData.image_url!==null"  :url="baseUrl+viewData.image_url" :name="viewData.name"></Image>
                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{viewData.name}}</h5>
-
-                <span  class="text-sm font-bold text-gray-500 dark:text-gray-400 flex space-x-2">
+                <div class="flex space-x-2 ">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="#888888" d="M168 116h48a20 20 0 0 0 20-20V48a20 20 0 0 0-20-20h-48a20 20 0 0 0-20 20v12h-4a36 36 0 0 0-36 36v20H84v-4a20 20 0 0 0-20-20H32a20 20 0 0 0-20 20v32a20 20 0 0 0 20 20h32a20 20 0 0 0 20-20v-4h24v20a36 36 0 0 0 36 36h4v12a20 20 0 0 0 20 20h48a20 20 0 0 0 20-20v-48a20 20 0 0 0-20-20h-48a20 20 0 0 0-20 20v12h-4a12 12 0 0 1-12-12V96a12 12 0 0 1 12-12h4v12a20 20 0 0 0 20 20ZM60 140H36v-24h24Zm112 24h40v40h-40Zm0-112h40v40h-40Z" ></path></svg>
+                    <div class="mb-1 text-sm font-medium text-gray-900 dark:text-white">{{viewData.parent_category.name}}</div>
+                </div>
+                <span  class="text-sm font-bold text-gray-500 dark:text-gray-400  space-x-2">
 
                               <div class="flex space-x-2">
                            <label>Active:</label>

@@ -72,12 +72,9 @@ function submit(){
 
 <template>
 
-    <Head title="Country Create"/>
+    <Head title="Country Edit"/>
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Country</h2>
-        </template>
-
+            <div class="formTitle">Edit Country</div>
         <div class="py-5">
             <Breadcrumb :data="breadcrumbList"></Breadcrumb>
             <div class="my-12 mx-auto  md:px-12  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

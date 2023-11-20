@@ -7,6 +7,7 @@ const props=defineProps({
     'settings':''
 })
 
+
 const form = useForm({
     field: 'email_verification',
     value: props.settings.value>0 ?true:false,

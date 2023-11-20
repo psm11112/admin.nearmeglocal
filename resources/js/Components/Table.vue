@@ -77,21 +77,27 @@ function deleteItem(id){
             <td >
                 <div class="flex items-center p-2"  >
 
-
                     <span v-if="item.url==null"></span>
-                    <span v-if="item.url!==null">
-                        <Image v-if="imageDisplay"  :url="baseUrl+item.url" :name="item.name"></Image>
+                    <span v-if="item.image_url!==null">
+                        <Image v-if="imageDisplay"  :url="baseUrl+item.image_url" :name="item.name"></Image>
                        <span v-if="svg" v-html="item.svg" class="text-2xl"></span>
-
                     </span>
+
                 </div>
             </td>
 
-            <th scope="row" class="flex items-center px-1 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                <div class="px-1 text-base font-semibold">{{item.name}}</div>
 
 
-            </th>
+            <td v-if="item.category_id" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+                    {{item.parent_category.name}}
+
+                </div>
+            </td>
+            <td scope="row" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">{{item.name}}</div>
+
+            </td>
 
 
             <td v-if="item.email" class="px-1 py-4">

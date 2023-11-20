@@ -28,6 +28,8 @@ function changeMode(value) {
     addMode(value)
 
     var root = document.getElementsByTagName('html')[0]; // '0' to assign the first (and only `HTML` tag)
+
+   // root.classList.toggle('dark');
     root.setAttribute('class', value);
 
 
@@ -330,7 +332,7 @@ const [show] = useAutoAnimate({
            class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
            aria-label="Sidebar">
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-            <ul class="space-y-2 font-medium hover:animate-pulse">
+            <ul class="space-y-2 font-medium ">
                 <li>
                     <a href="#" class="navCus group">
 
@@ -341,12 +343,12 @@ const [show] = useAutoAnimate({
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="navCus group font-rubik">
+                    <a href="#" class="navCus group">
 
                         <svg class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><path fill="#888888" d="M117.25 157.92a60 60 0 1 0-66.5 0a95.83 95.83 0 0 0-47.22 37.71a8 8 0 1 0 13.4 8.74a80 80 0 0 1 134.14 0a8 8 0 0 0 13.4-8.74a95.83 95.83 0 0 0-47.22-37.71ZM40 108a44 44 0 1 1 44 44a44.05 44.05 0 0 1-44-44Zm210.14 98.7a8 8 0 0 1-11.07-2.33A79.83 79.83 0 0 0 172 168a8 8 0 0 1 0-16a44 44 0 1 0-16.34-84.87a8 8 0 1 1-5.94-14.85a60 60 0 0 1 55.53 105.64a95.83 95.83 0 0 1 47.22 37.71a8 8 0 0 1-2.33 11.07Z"></path></svg>
 
                         <Link class="ml-3" :href="route('user.index')">
-                        <span class="ml-3">User</span>
+                       User
                         </Link>
                     </a>
                 </li>
@@ -362,7 +364,7 @@ const [show] = useAutoAnimate({
 
                 <li>
                     <a href="#" class="navCus group font-rubik">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24"><path fill="#888888" d="M16.95 11.95a6.996 6.996 0 0 0 1.858-6.582l2.495-1.07a.5.5 0 0 1 .697.46V19l-7 3l-6-3l-6.303 2.701a.5.5 0 0 1-.697-.46V7l3.129-1.341a6.993 6.993 0 0 0 1.921 6.29L12 16.9l4.95-4.95Zm-1.414-1.414L12 14.07l-3.536-3.535a5 5 0 1 1 7.072 0Z"></path></svg>
+                        <svg  class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24"><path fill="#888888" d="M16.95 11.95a6.996 6.996 0 0 0 1.858-6.582l2.495-1.07a.5.5 0 0 1 .697.46V19l-7 3l-6-3l-6.303 2.701a.5.5 0 0 1-.697-.46V7l3.129-1.341a6.993 6.993 0 0 0 1.921 6.29L12 16.9l4.95-4.95Zm-1.414-1.414L12 14.07l-3.536-3.535a5 5 0 1 1 7.072 0Z"></path></svg>
                         <Link class="ml-3" :href="route('state.index')">
                             States
                         </Link>
@@ -370,49 +372,41 @@ const [show] = useAutoAnimate({
                 </li>
 
                 <li>
+                    <button type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-500 font-bold  rounded-lg group hover:bg-gray-100 hover:duration-500  hover:delay-300 hover:text-purple-500 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                        <svg  class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><path fill="#888888" d="M168 116h48a20 20 0 0 0 20-20V48a20 20 0 0 0-20-20h-48a20 20 0 0 0-20 20v12h-4a36 36 0 0 0-36 36v20H84v-4a20 20 0 0 0-20-20H32a20 20 0 0 0-20 20v32a20 20 0 0 0 20 20h32a20 20 0 0 0 20-20v-4h24v20a36 36 0 0 0 36 36h4v12a20 20 0 0 0 20 20h48a20 20 0 0 0 20-20v-48a20 20 0 0 0-20-20h-48a20 20 0 0 0-20 20v12h-4a12 12 0 0 1-12-12V96a12 12 0 0 1 12-12h4v12a20 20 0 0 0 20 20ZM60 140H36v-24h24Zm112 24h40v40h-40Zm0-112h40v40h-40Z"></path></svg>
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Category</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+
+                    <ul   id="dropdown-example" class="hidden py-2 space-y-2">
+                        <li>
+
+                            <Link :href="route('category.index')"
+                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Category</Link>
+                        </li>
+                        <li>
+
+                            <Link  :href="route('sub-category.index')"
+                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sub Category</Link>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
                     <a href="#" class="navCus group font-rubik">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><g fill="#888888"><path d="m230.1 108.76l-31.85-18.14c-.64-1.16-1.31-2.29-2-3.41l-.12-36A104.61 104.61 0 0 0 162 32l-32 17.89h-4L94 32a104.58 104.58 0 0 0-34.11 19.25l-.16 36c-.7 1.12-1.37 2.26-2 3.41l-31.84 18.1a99.15 99.15 0 0 0 0 38.46l31.85 18.14c.64 1.16 1.31 2.29 2 3.41l.12 36A104.61 104.61 0 0 0 94 224l32-17.87h4L162 224a104.58 104.58 0 0 0 34.08-19.25l.16-36c.7-1.12 1.37-2.26 2-3.41l31.84-18.1a99.15 99.15 0 0 0 .02-38.48ZM128 168a40 40 0 1 1 40-40a40 40 0 0 1-40 40Z" opacity=".2"></path><path d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm109.94-52.79a8 8 0 0 0-3.89-5.4l-29.83-17l-.12-33.62a8 8 0 0 0-2.83-6.08a111.91 111.91 0 0 0-36.72-20.67a8 8 0 0 0-6.46.59L128 41.85L97.88 25a8 8 0 0 0-6.47-.6a111.92 111.92 0 0 0-36.68 20.75a8 8 0 0 0-2.83 6.07l-.15 33.65l-29.83 17a8 8 0 0 0-3.89 5.4a106.47 106.47 0 0 0 0 41.56a8 8 0 0 0 3.89 5.4l29.83 17l.12 33.63a8 8 0 0 0 2.83 6.08a111.91 111.91 0 0 0 36.72 20.67a8 8 0 0 0 6.46-.59L128 214.15L158.12 231a7.91 7.91 0 0 0 3.9 1a8.09 8.09 0 0 0 2.57-.42a112.1 112.1 0 0 0 36.68-20.73a8 8 0 0 0 2.83-6.07l.15-33.65l29.83-17a8 8 0 0 0 3.89-5.4a106.47 106.47 0 0 0-.03-41.52Zm-15 34.91l-28.57 16.25a8 8 0 0 0-3 3c-.58 1-1.19 2.06-1.81 3.06a7.94 7.94 0 0 0-1.22 4.21l-.15 32.25a95.89 95.89 0 0 1-25.37 14.3L134 199.13a8 8 0 0 0-3.91-1h-3.83a8.1 8.1 0 0 0-4.1 1l-28.84 16.1A96 96 0 0 1 67.88 201l-.11-32.2a8 8 0 0 0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09 8.09 0 0 0-3-3.06l-28.6-16.29a90.49 90.49 0 0 1 0-28.26l28.52-16.28a8 8 0 0 0 3-3c.58-1 1.19-2.06 1.81-3.06a7.94 7.94 0 0 0 1.22-4.21l.15-32.25a95.89 95.89 0 0 1 25.37-14.3L122 56.87a8 8 0 0 0 4.1 1h3.64a8 8 0 0 0 4.1-1l28.84-16.1A96 96 0 0 1 188.12 55l.11 32.2a8 8 0 0 0 1.22 4.22c.62 1 1.23 2 1.8 3.06a8.09 8.09 0 0 0 3 3.06l28.6 16.29a90.49 90.49 0 0 1 .05 28.29Z"></path></g></svg>
+                        <svg  class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><g fill="#888888"><path d="m230.1 108.76l-31.85-18.14c-.64-1.16-1.31-2.29-2-3.41l-.12-36A104.61 104.61 0 0 0 162 32l-32 17.89h-4L94 32a104.58 104.58 0 0 0-34.11 19.25l-.16 36c-.7 1.12-1.37 2.26-2 3.41l-31.84 18.1a99.15 99.15 0 0 0 0 38.46l31.85 18.14c.64 1.16 1.31 2.29 2 3.41l.12 36A104.61 104.61 0 0 0 94 224l32-17.87h4L162 224a104.58 104.58 0 0 0 34.08-19.25l.16-36c.7-1.12 1.37-2.26 2-3.41l31.84-18.1a99.15 99.15 0 0 0 .02-38.48ZM128 168a40 40 0 1 1 40-40a40 40 0 0 1-40 40Z" opacity=".2"></path><path d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm109.94-52.79a8 8 0 0 0-3.89-5.4l-29.83-17l-.12-33.62a8 8 0 0 0-2.83-6.08a111.91 111.91 0 0 0-36.72-20.67a8 8 0 0 0-6.46.59L128 41.85L97.88 25a8 8 0 0 0-6.47-.6a111.92 111.92 0 0 0-36.68 20.75a8 8 0 0 0-2.83 6.07l-.15 33.65l-29.83 17a8 8 0 0 0-3.89 5.4a106.47 106.47 0 0 0 0 41.56a8 8 0 0 0 3.89 5.4l29.83 17l.12 33.63a8 8 0 0 0 2.83 6.08a111.91 111.91 0 0 0 36.72 20.67a8 8 0 0 0 6.46-.59L128 214.15L158.12 231a7.91 7.91 0 0 0 3.9 1a8.09 8.09 0 0 0 2.57-.42a112.1 112.1 0 0 0 36.68-20.73a8 8 0 0 0 2.83-6.07l.15-33.65l29.83-17a8 8 0 0 0 3.89-5.4a106.47 106.47 0 0 0-.03-41.52Zm-15 34.91l-28.57 16.25a8 8 0 0 0-3 3c-.58 1-1.19 2.06-1.81 3.06a7.94 7.94 0 0 0-1.22 4.21l-.15 32.25a95.89 95.89 0 0 1-25.37 14.3L134 199.13a8 8 0 0 0-3.91-1h-3.83a8.1 8.1 0 0 0-4.1 1l-28.84 16.1A96 96 0 0 1 67.88 201l-.11-32.2a8 8 0 0 0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09 8.09 0 0 0-3-3.06l-28.6-16.29a90.49 90.49 0 0 1 0-28.26l28.52-16.28a8 8 0 0 0 3-3c.58-1 1.19-2.06 1.81-3.06a7.94 7.94 0 0 0 1.22-4.21l.15-32.25a95.89 95.89 0 0 1 25.37-14.3L122 56.87a8 8 0 0 0 4.1 1h3.64a8 8 0 0 0 4.1-1l28.84-16.1A96 96 0 0 1 188.12 55l.11 32.2a8 8 0 0 0 1.22 4.22c.62 1 1.23 2 1.8 3.06a8.09 8.09 0 0 0 3 3.06l28.6 16.29a90.49 90.49 0 0 1 .05 28.29Z"></path></g></svg>
 
                         <Link class="ml-3" :href="route('setting.index')">
                             Settings
                         </Link>
                     </a>
                 </li>
-
-
-
-
-<!--                <li>-->
-<!--                    <button type="button"-->
-<!--                            class="flex items-center w-full p-2 text-base text-gray-500 font-bold  rounded-lg group hover:bg-gray-100 hover:duration-500  hover:delay-300 hover:text-purple-500 dark:text-white dark:hover:bg-gray-700"-->
-<!--                            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">-->
-<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="text-2xl"-->
-<!--                             viewBox="0 0 256 256">-->
-<!--                            <path fill="currentColor"-->
-<!--                                  d="M236 69.4a16.13 16.13 0 0 0-12.08-5.4H176a48 48 0 0 0-96 0H32.08a16.13 16.13 0 0 0-12 5.4a16 16 0 0 0-3.92 12.48l14.26 120a16 16 0 0 0 16 14.12h163.25a16 16 0 0 0 16-14.12l14.26-120A16 16 0 0 0 236 69.4ZM128 32a32 32 0 0 1 32 32H96a32 32 0 0 1 32-32Zm81.76 168a.13.13 0 0 1-.09 0H46.25L32.08 80H80v24a8 8 0 0 0 16 0V80h64v24a8 8 0 0 0 16 0V80h48Z"></path>-->
-<!--                        </svg>-->
-<!--                        <span class="flex-1 ml-3 text-left whitespace-nowrap">E-commerce</span>-->
-<!--                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"-->
-<!--                             viewBox="0 0 10 6">-->
-<!--                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"-->
-<!--                                  d="m1 1 4 4 4-4"/>-->
-<!--                        </svg>-->
-<!--                    </button>-->
-<!--                    <ul id="dropdown-example" class="hidden py-2 space-y-2">-->
-<!--                        <li>-->
-<!--                            <a href="#"-->
-<!--                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <a href="#"-->
-<!--                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Billing</a>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <a href="#"-->
-<!--                               class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </li>-->
 
             </ul>
         </div>
