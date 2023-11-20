@@ -27,9 +27,11 @@ class SubCategoryRequest extends FormRequest
     public function rules()
     {
         return [
+            'category_id'=>['required'],
             'name' => ['required','string','max:255',
                 Rule::unique(SubCategory::class,'name')->ignore($this->id)],
             'sku'=>'required',
+
             'photo'=>'bail|nullable|mimes:jpeg,jpg,png,svg|max:2048'
         ];
     }

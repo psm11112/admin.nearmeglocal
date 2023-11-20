@@ -87,7 +87,8 @@ function submit() {
                                 option-label="name"
                                 placeholder="Select a Category"
                                 filter
-                                class="w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                :class="form.errors.category_id?'errorInput':'w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"
+                              />
                             <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">
                                 <p v-if="form.errors.category_id" class="text-sm text-gray-600">
                                     <ErrorMessage  :message="form.errors.category_id"></ErrorMessage>
@@ -134,38 +135,11 @@ function submit() {
                                 </p>
                             </Transition>
                         </div>
-                        <div class="w-full">
-                            <label for="Description" class="formLable">Description</label>
-                            <textarea class="input w-full" v-model="form.description"></textarea>
-                            <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">
-                                <p v-if="form.errors.sku" class="text-sm text-gray-600">
-                                    <ErrorMessage  :message="form.errors.sku"></ErrorMessage>
-                                </p>
-                            </Transition>
-                        </div>
+
 
                     </div>
 
-<!--                    <div v-if="!hidden" v-motion-fade-visible class="flex p-2 justify-center items-center" >-->
-<!--                        <img :src="image" class="rounded-lg w-48" title="preview">-->
-<!--                    </div>-->
-<!--                    <div class="flex items-center justify-center w-full">-->
-<!--                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">-->
-<!--                            <div class="flex flex-col items-center justify-center pt-5 pb-6" >-->
-<!--                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">-->
-<!--                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>-->
-<!--                                </svg>-->
-<!--                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>-->
-<!--                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG</p>-->
-<!--                            </div>-->
-<!--                            <input id="dropzone-file" @input="form.photo = $event.target.files[0]" type="file" class="hidden" @change="previewImage" />-->
-<!--                        </label>-->
-<!--                    </div>-->
-<!--                    <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">-->
-<!--                        <p v-if="form.errors.photo" class="text-sm text-gray-600">-->
-<!--                            <ErrorMessage  :message="form.errors.photo"></ErrorMessage>-->
-<!--                        </p>-->
-<!--                    </Transition>-->
+
 
                     <div class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                     <FileUpload class="formButton"  @input="form.photo = $event.target.files[0]" name="demo[]" url="/api/upload"  @upload="onAdvancedUpload($event)"  accept="image/*" :maxFileSize="1000000">
@@ -182,8 +156,6 @@ function submit() {
 
 
                     <div class="p-2">
-<!--                        <button type="submit" class="formButton" :disabled="form.processing">Submit</button>-->
-
                         <Button :name="'Add Sub Category'" :process="form.processing"></Button>
                     </div>
                 </form>
