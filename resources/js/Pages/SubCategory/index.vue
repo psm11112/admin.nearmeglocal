@@ -3,18 +3,32 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import Pagination from '@/Components/Pagination.vue'
 import Table from '@/Components/Table.vue'
 import {useForm,Link,usePage} from "@inertiajs/vue3";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import Image from "@/Components/Image.vue";
 import Search from '@/Components/Search.vue';
 import Breadcrumb from "@/Components/Breadcrumb.vue"
+import Column from 'primevue/column';
+import Dropdown from 'primevue/dropdown';
+import Button from '@/Components/Button.vue'
 
 const props=defineProps({
     'subCategory':[]
 })
 
+let subCategoryList=ref(null)
+
+onMounted(() => {
+    axios.get('/api/sub-category/all').then((res)=>{
+
+        subCategoryList.value=res.data;
+    });
+})
+
 const baseUrl='/storage/';
 const form = useForm({
     term: null,
+    parent_id:null,
+    category_id:null
 })
 
 const breadcrumbList=[
@@ -27,6 +41,7 @@ const breadcrumbList=[
 
 
 let hidden=ref(true);
+let subcategoryHidden=ref(true);
 let viewData=ref(null);
 
 function showView(id){
@@ -37,8 +52,18 @@ function showView(id){
 
 }
 
+function addSubCategory(id){
+    form.parent_id=id;
+    subcategoryHidden.value= subcategoryHidden.value?false:true
+
+}
+
 function closeShowView(){
     hidden.value = hidden.value ? false:true
+}
+function closeSubCategory(){
+
+    subcategoryHidden.value= subcategoryHidden.value?false:true
 }
 function changeTerm(term){
 
@@ -47,6 +72,18 @@ function changeTerm(term){
         preserveState:true,
         preserveScroll:true,
     })
+
+}
+
+function submit(){
+    console.log(form.category_id);
+
+    form.post(route('sub-category.add'),{
+        preserveState:true,
+        preserveScroll:true,
+    });
+
+
 
 }
 
@@ -60,6 +97,8 @@ function changeTerm(term){
 <div class="py-5">
     <Breadcrumb :data="breadcrumbList"></Breadcrumb>
     <div class="relative overflow-x-auto rounded-lg shadow-lg  sm:rounded-lg p-5">
+
+
         <div class="flex items-center justify-between  ">
             <div class="p-5 sm:w-full">
 
@@ -83,12 +122,14 @@ function changeTerm(term){
             <Table
                 :imageDisplay="true"
                 :svg="true"
-                :tableHeader="['','Category','Name','Status','Action']"
+                :tableHeader="['','Name','Parent Category','Sub Category','Status','Action']"
                 :data="subCategory"
                 @showView="showView"
+                @addSubCategory="addSubCategory"
                 :deleteRoute="route('sub-category.deleted')"
                 :changeStatusRoute="route('sub-category.change-status')"
                 :userEditName="/sub-category/"
+                :multiList="true"
             ></Table>
 
         </div>
@@ -144,5 +185,66 @@ function changeTerm(term){
 
     </div>
 </div>
+
+    <div
+        v-if="!subcategoryHidden"
+        v-motion-slide-bottom
+        id="" tabindex="-1" aria-hidden="true" class="fixed rounded-full absolute top-48 left-0 right-0 lg:w-full z-50  w-full p-8  overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="flex h-screen justify-center items-center">
+            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex justify-end px-4 pt-4">
+
+                    <button @click="closeSubCategory" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+
+                </div>
+
+
+
+                <div class=" flex-col items-center pb-10 space-y-2 p-5">
+
+                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Add Sub Category</h5>
+
+                    <span  class="text-sm font-bold text-gray-500 dark:text-gray-400  space-x-2">
+
+                         <form  @submit.prevent="submit">
+
+                              <Dropdown
+                                  :virtualScrollerOptions="{ lazy: true, onLazyLoad: true, itemSize: 48, showLoader: true, loading: false }"
+                                  v-model="form.category_id"
+                                  :options="subCategoryList"
+                                  option-value="id"
+                                  option-label="name"
+                                  placeholder="Select a Category"
+                                  filter
+
+                                  :class="form.errors.category_id?'errorInput':'w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"
+
+                                  :pt="{
+                                list: { class: 'backGrounAndText' },
+                                filterInput:{class:'backGrounAndText'},
+                                input:{class:'input'},
+                                header:{class:'backGrounAndText'},
+                                filterContainer:{class:'backGrounAndText'},
+
+                             }"
+                              />
+
+                        <div class="flex p-2 justify-center">
+
+                            <Button :name="'Add'" :process="form.processing"></Button>
+                        </div>
+                         </form>
+                    </span>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </AuthenticatedLayout>
 </template>

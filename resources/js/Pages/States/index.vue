@@ -112,6 +112,7 @@ function closeShowView(){
                         :deleteRoute="route('state.deleted')"
                         :changeStatusRoute="route('state.change-status')"
                         :userEditName="/state/"
+                        :multiList="false"
                     ></Table>
 
                 </div>

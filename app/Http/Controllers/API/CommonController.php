@@ -36,4 +36,12 @@ class CommonController extends ResponseController
         $subCategory=SubCategory::with('ParentCategory')->FindOrFail($id);
         return response()->json($subCategory, 200);
     }
+    public function getSubCategoryByCategory(Request $request){
+        $subCategory=SubCategory::where('category_id',$request->category_id)->get();
+        return response()->json($subCategory, 200);
+    }
+    public function getAllSubCategory(){
+        $subCategory=SubCategory::get();
+        return response()->json($subCategory, 200);
+    }
 }

@@ -1,7 +1,7 @@
 <script setup>
 import Dropdown from 'primevue/dropdown';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import {ref, watch} from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import { useForm,usePage } from '@inertiajs/vue3'
 import ToastMessage from "@/helper/ToastMessage";
 import ErrorMessage from '@/Components/Error.vue'
@@ -10,6 +10,7 @@ import Breadcrumb from '@/Components/Breadcrumb.vue'
 import TextInput from '@/Components/TextInput.vue'
 import Button from '@/Components/Button.vue'
 import FileUpload from 'primevue/fileupload';
+import MultiSelect from 'primevue/multiselect';
 
 
 const props=defineProps({
@@ -21,6 +22,15 @@ const props=defineProps({
 
 const image=ref('');
 const hidden=ref(true);
+let subCategoryList=ref(null);
+
+
+onMounted(() => {
+    axios.get('/api/sub-category/all').then((res)=>{
+
+        subCategoryList.value=res.data;
+    });
+})
 
 function success(){
     // form.reset('name');
@@ -33,7 +43,8 @@ const form = useForm({
     name: props.subCategory.name,
     sku: props.subCategory.sku,
     photo:'',
-    old_image:props.subCategory.image_url
+    old_image:props.subCategory.image_url,
+    child_category_id:props.subCategory.children
 
 
 })
@@ -158,17 +169,10 @@ function deleteImage(){
                                 </p>
                             </Transition>
                         </div>
-<!--                        <div class="w-full">-->
-<!--                            <label for="Description" class="formLable">Description</label>-->
-<!--                            <textarea class="input w-full" v-model="form.description"></textarea>-->
-<!--                            <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">-->
-<!--                                <p v-if="form.errors.sku" class="text-sm text-gray-600">-->
-<!--                                    <ErrorMessage  :message="form.errors.sku"></ErrorMessage>-->
-<!--                                </p>-->
-<!--                            </Transition>-->
-<!--                        </div>-->
-
                     </div>
+
+
+
 
                     <div  class="flex p-2 justify-center items-center">
                         <img v-if="image.length>0" :src="image" class="rounded-lg w-24" title="preview">
@@ -206,19 +210,6 @@ function deleteImage(){
                                             </p>
                                         </Transition>
 
-<!--                    <div class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">-->
-<!--                        <FileUpload class="formButton"  @input="form.photo = $event.target.files[0]" name="demo" url="/api/upload" @change="onAdvancedUpload($event)"  @upload="onAdvancedUpload($event)"  accept="image/*" :maxFileSize="1000000">-->
-<!--                            <template #empty class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">-->
-<!--                                <p>Drag and drop files to here to upload.</p>-->
-<!--                            </template>-->
-<!--                        </FileUpload>-->
-<!--                        <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">-->
-<!--                            <p v-if="form.errors.photo" class="text-sm text-gray-600">-->
-<!--                                <ErrorMessage  :message="form.errors.photo"></ErrorMessage>-->
-<!--                            </p>-->
-<!--                        </Transition>-->
-<!--                    </div>-->
-
 
                     <div class="p-2">
                         <!--                        <button type="submit" class="formButton" :disabled="form.processing">Submit</button>-->
@@ -226,6 +217,33 @@ function deleteImage(){
                         <Button :name="'Update Sub Category'" :process="form.processing"></Button>
                     </div>
                 </form>
+
+            </div>
+            <div v-auto-animate class="my-12 mx-auto  md:px-12  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="text-2xl text-gray-500">Manage Sub Category</div>
+
+                <div class="bg-gray-300 p-2 " v-for="(sub1,index) in subCategory.children" :key="index">
+                    {{sub1.name}}
+                    <div class="bg-gray-50 border-2  ml-6" v-if="sub1.children" v-for="(sub2,index1)   in sub1.children" :key="index1">
+                        {{sub2.name}}
+                        <div class="ml-6" v-if="sub2.children" v-for="(sub3,index3)   in sub2.children" :key="index3">
+                            {{sub3.name}}
+
+                            <div class="ml-6" v-if="sub3.children" v-for="(sub4,index4)   in sub3.children" :key="index4">
+                                {{sub4.name}}
+                                <div class="ml-6" v-if="sub4.children" v-for="(sub5,index5)   in sub4.children" :key="index5">
+                                    {{sub5.name}}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
 
             </div>
 

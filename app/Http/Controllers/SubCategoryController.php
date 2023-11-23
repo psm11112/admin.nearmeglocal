@@ -23,9 +23,11 @@ class SubCategoryController extends Controller
 
     }
     public function index(Request $request){
-        $category=SubCategory::with('ParentCategory')->when($request->term,function($query) use ($request)  {
+        $category=SubCategory::whereNull('parent_id')->with(['children','ParentCategory'])->when($request->term,function($query) use ($request)  {
             $query->where('name','like','%'.$request->term.'%');
         })->paginate(config('service.pagination'))->withQueryString();
+
+
 
         return Inertia::render('SubCategory/index',['subCategory'=>$category]);
     }
@@ -36,9 +38,10 @@ class SubCategoryController extends Controller
     }
 
     public function store(SubCategoryRequest $request){
+
         $image_path=null;
 
-        if ($request->hasFile('photo')) {
+            if ($request->hasFile('photo')) {
 
             $image_path = $request->file('photo')->store('image/sub-category', 'public');
         }
@@ -50,6 +53,13 @@ class SubCategoryController extends Controller
         $this->modelName->image_url=$image_path;
         $this->modelName->save();
 
+        foreach ($request->child_category_id as $childCategory ){
+            $ch=SubCategory::find($childCategory['id']);
+            $ch->parent_id=$this->modelName->id;
+            $ch->save();
+
+        }
+
         return to_route($this->routeName.'.index')->with('message',$this->routeName.' Successfully Added');
 
     }
@@ -57,7 +67,8 @@ class SubCategoryController extends Controller
     public function edit($id){
 
 
-        $this->modelName=SubCategory::FindOrFail($id);
+
+        $this->modelName=SubCategory::with(['children','ParentCategory'])->FindOrFail($id);
         $category=Category::select('id','name')->get();
 
         return Inertia::render('SubCategory/edit',[
@@ -70,8 +81,6 @@ class SubCategoryController extends Controller
     }
 
     public function update(Request $request){
-
-
 
         $this->modelName= SubCategory::FindOrFail($request->id);
 
@@ -146,6 +155,26 @@ class SubCategoryController extends Controller
         $this->modelName->save();
 
         return to_route($this->routeName.'.edit',['id'=>$request->id])->with('message',$this->routeName.' Images Removed');
+
+    }
+
+    public function addSubCategory(Request $request){
+
+         $this->modelName=SubCategory::find($request->category_id);
+         $this->modelName->parent_id=$request->parent_id;
+         $this->modelName->save();
+
+        return to_route($this->routeName.'.index')->with('message',$this->routeName.' Successfully Deleted');
+
+       // dd($request->all());
+    }
+
+    public function removeSubCategoryFromParent(Request $request){
+        $this->modelName=SubCategory::find($request->id);
+        $this->modelName->parent_id=null;
+        $this->modelName->save();
+
+        return to_route($this->routeName.'.index')->with('message',$this->routeName.' Successfully Removed');
 
     }
 

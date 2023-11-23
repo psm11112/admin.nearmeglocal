@@ -15,7 +15,8 @@ const props=defineProps({
     changeStatusRoute:[],
     userEditName:'',
     imageDisplay:'',
-    svg:''
+    svg:'',
+    multiList:''
 
 })
 
@@ -57,6 +58,21 @@ function deleteItem(id){
     });
 }
 
+function removeSubCategory(id) {
+
+    form.id=id;
+    form.post(route('sub-category.remove'),{
+        preserveState:true,
+        preserveScroll:true,
+        onSuccess:()=>success()
+    })
+
+
+
+    console.log(id);
+}
+
+
 </script>
 
 <template>
@@ -74,6 +90,7 @@ function deleteItem(id){
         <tbody>
 
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" v-for="(item,index) in data.data" :key="index">
+
             <td >
                 <div class="flex items-center p-2"  >
 
@@ -87,16 +104,73 @@ function deleteItem(id){
             </td>
 
 
+            <td scope="row" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+                    {{item.name}}
+                </div>
 
+            </td>
+
+
+            <td v-if="item.country_id" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+
+                    <span  v-html="item.country.svg" class="text-2xl"></span>
+
+                </div>
+            </td>
             <td v-if="item.category_id" class="px-1 py-4">
                 <div class="flex items-center text-base font-semibold px-1">
                     {{item.parent_category.name}}
 
                 </div>
             </td>
-            <td scope="row" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">{{item.name}}</div>
 
+
+            <td v-if="multiList">
+                <div  v-for="(sub1,index) in item.children" :key="index">
+                    <div class="flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="#888888" d="M5 14V5h2v7h7.586V6.586L21 13l-6.414 6.414V14H5Z"></path></svg>
+                        <Link :href="userEditName+sub1.id"   >{{sub1.name}}</Link>
+                        <svg class="hover:cursor-pointer " @click="removeSubCategory(sub1.id)" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="currentColor" d="M168.49 104.49L145 128l23.52 23.51a12 12 0 0 1-17 17L128 145l-23.51 23.52a12 12 0 0 1-17-17L111 128l-23.49-23.51a12 12 0 0 1 17-17L128 111l23.51-23.52a12 12 0 0 1 17 17ZM236 128A108 108 0 1 1 128 20a108.12 108.12 0 0 1 108 108Zm-24 0a84 84 0 1 0-84 84a84.09 84.09 0 0 0 84-84Z"></path></svg>
+
+                    </div>
+                    <div class="ml-6" v-if="sub1.children"  v-for="(sub2,index1) in sub1.children" :key="index1">
+
+
+                        <div class="flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="#888888" d="M5 14V5h2v7h7.586V6.586L21 13l-6.414 6.414V14H5Z"></path></svg>
+                            <Link :href="userEditName+sub2.id"   >{{sub2.name}}</Link>
+                            <svg class="hover:cursor-pointer " @click="removeSubCategory(sub2.id)" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="currentColor" d="M168.49 104.49L145 128l23.52 23.51a12 12 0 0 1-17 17L128 145l-23.51 23.52a12 12 0 0 1-17-17L111 128l-23.49-23.51a12 12 0 0 1 17-17L128 111l23.51-23.52a12 12 0 0 1 17 17ZM236 128A108 108 0 1 1 128 20a108.12 108.12 0 0 1 108 108Zm-24 0a84 84 0 1 0-84 84a84.09 84.09 0 0 0 84-84Z"></path></svg>
+                        </div>
+
+                        <div class="ml-6" v-if="sub2.children"  v-for="(sub3,index2) in sub2.children" :key="index3">
+                            <div class="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="#888888" d="M5 14V5h2v7h7.586V6.586L21 13l-6.414 6.414V14H5Z"></path></svg>
+                                <Link :href="userEditName+sub3.id"   >{{sub3.name}}</Link>
+                                <svg class="hover:cursor-pointer " @click="removeSubCategory(sub3.id)" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="currentColor" d="M168.49 104.49L145 128l23.52 23.51a12 12 0 0 1-17 17L128 145l-23.51 23.52a12 12 0 0 1-17-17L111 128l-23.49-23.51a12 12 0 0 1 17-17L128 111l23.51-23.52a12 12 0 0 1 17 17ZM236 128A108 108 0 1 1 128 20a108.12 108.12 0 0 1 108 108Zm-24 0a84 84 0 1 0-84 84a84.09 84.09 0 0 0 84-84Z"></path></svg>
+                            </div>
+                            <div class="ml-6" v-if="sub3.children"  v-for="(sub4,index3) in sub3.children" :key="index4">
+                                <div class="flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="#888888" d="M5 14V5h2v7h7.586V6.586L21 13l-6.414 6.414V14H5Z"></path></svg>
+                                    <Link :href="userEditName+sub4.id"   > {{sub4.name}}</Link>
+                                    <svg class="hover:cursor-pointer " @click="removeSubCategory(sub4.id)" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="currentColor" d="M168.49 104.49L145 128l23.52 23.51a12 12 0 0 1-17 17L128 145l-23.51 23.52a12 12 0 0 1-17-17L111 128l-23.49-23.51a12 12 0 0 1 17-17L128 111l23.51-23.52a12 12 0 0 1 17 17ZM236 128A108 108 0 1 1 128 20a108.12 108.12 0 0 1 108 108Zm-24 0a84 84 0 1 0-84 84a84.09 84.09 0 0 0 84-84Z"></path></svg>
+                                </div>
+
+                                <div class="ml-6" v-if="sub4.children"  v-for="(sub5,index5) in sub4.children" :key="index5">
+                                    <div class="flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="#888888" d="M5 14V5h2v7h7.586V6.586L21 13l-6.414 6.414V14H5Z"></path></svg>
+                                        <Link :href="userEditName+sub5.id"   > {{sub5.name}}</Link>
+                                        <svg class="hover:cursor-pointer " @click="removeSubCategory(sub5.id)" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 256 256"><path fill="currentColor" d="M168.49 104.49L145 128l23.52 23.51a12 12 0 0 1-17 17L128 145l-23.51 23.52a12 12 0 0 1-17-17L111 128l-23.49-23.51a12 12 0 0 1 17-17L128 111l23.51-23.52a12 12 0 0 1 17 17ZM236 128A108 108 0 1 1 128 20a108.12 108.12 0 0 1 108 108Zm-24 0a84 84 0 1 0-84 84a84.09 84.09 0 0 0 84-84Z"></path></svg>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
             </td>
 
 
@@ -108,7 +182,7 @@ function deleteItem(id){
             </td>
 
 
-            <td class="px-1 py-4">
+            <td>
                 <div class="px-1 flex items-center">
 
                     <ToggleButton  @statusChange="changeStatus" :id="item.id" :check="item.is_active" :processing="form.processing" ></ToggleButton>
@@ -131,6 +205,12 @@ function deleteItem(id){
 
                 <button @click="deleteItem(item.id)" type="button" class="deleteButton">
                     <svg class="text-lg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24ZM100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0Zm48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0Z"></path></svg>
+                </button>
+
+                <button v-if="multiList" @click="$emit('addSubCategory',item.id)" type="button" class="deleteButton" title="add new sub category">
+                    <svg class="text-lg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M88 64a24 24 0 1 1-24-24a24 24 0 0 1 24 24Zm104-24a24 24 0 1 0 24 24a24 24 0 0 0-24-24Z" opacity=".2"></path><path d="M224 64a32 32 0 1 0-40 31v9a16 16 0 0 1-16 16H88a16 16 0 0 1-16-16v-9a32 32 0 1 0-16 0v9a32 32 0 0 0 32 32h32v25a32 32 0 1 0 16 0v-25h32a32 32 0 0 0 32-32v-9a32.06 32.06 0 0 0 24-31ZM48 64a16 16 0 1 1 16 16a16 16 0 0 1-16-16Zm96 128a16 16 0 1 1-16-16a16 16 0 0 1 16 16Zm48-112a16 16 0 1 1 16-16a16 16 0 0 1-16 16Z"></path></g></svg>
+
+
                 </button>
 
             </td>

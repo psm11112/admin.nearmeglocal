@@ -54,6 +54,8 @@ Route::controller(\App\Http\Controllers\SubCategoryController::class)->group(fun
     Route::get('/sub-category/{id}','edit')->name('sub-category.edit');
     Route::post('/sub-category/delete-image','deleteImage')->name('sub-category.delete-image');
     Route::post('/sub-category/update','update')->name('sub-category.update');
+    Route::post('sub-category/add','addSubCategory')->name('sub-category.add');
+    Route::post('sub-category/remove','removeSubCategoryFromParent')->name('sub-category.remove');
 
 
 })->middleware(['auth', 'verified']);
@@ -90,6 +92,15 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
     Route::post('/user/update','update')->name('user.update');
     Route::post('/user/change-status','changeStatus')->name('user.change-status');
     Route::post('/user/deleted','itemDeleted')->name('user.delete');
+
+
+
+});
+
+Route::controller(\App\Http\Controllers\ListController::class)->group(function () {
+    Route::get('/list','index')->name('list.index');
+    Route::get('/list/create','create')->name('list.create');
+
 
 
 

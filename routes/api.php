@@ -30,3 +30,8 @@ Route::get('/country/view/{id}', [\App\Http\Controllers\API\CommonController::cl
 Route::get('/state/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getStates'])->name('state-view');
 Route::get('/category/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getCategory'])->name('category-view');
 Route::get('/sub-category/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getSubCategory'])->name('sub-category-view');
+Route::post('/sub-category', [\App\Http\Controllers\API\CommonController::class, 'getSubCategoryByCategory'])->name('sub-category');
+Route::get('/sub-category/all', [\App\Http\Controllers\API\CommonController::class, 'getAllSubCategory'])->name('sub-category.all');
+
+
+
