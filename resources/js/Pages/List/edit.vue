@@ -131,12 +131,12 @@ const form = useForm({
     title: props.list.title,
     title_slug: props.list.slug,
     item_featured:props.list.item_featured,
-    category_id:props.list.category_id,
+    category_id:Number(props.list.category_id),
     sub_category_id:JSON.parse(props.list.sub_category_ids),
-    country_id:props.list.country_id,
-    city_id:props.list.city_id,
-    state_id:props.list.state_id,
-    area_id:props.list.area_id,
+    country_id:Number(props.list.country_id),
+    city_id:Number(props.list.city_id),
+    state_id:Number(props.list.state_id),
+    area_id:Number(props.list.area_id),
     post_code:props.list.post_code,
     address:props.list.address,
     longitude:props.list.longitude,
@@ -186,7 +186,7 @@ onMounted(()=>{
 
 
 
-    console.log(form);
+
 
 
     loading.value = false
