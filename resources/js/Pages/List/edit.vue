@@ -144,7 +144,7 @@ const form = useForm({
     id:props.list.id,
     title: props.list.title,
     title_slug: props.list.slug,
-    item_featured:props.list.item_featured,
+    item_featured:Number(props.list.item_featured),
     category_id:Number(props.list.category_id),
     sub_category_id:JSON.parse(props.list.sub_category_ids),
     country_id:Number(props.list.country_id),
