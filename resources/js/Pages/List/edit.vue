@@ -31,12 +31,12 @@ const value=GetValue()
 
 let itemFeaturedList=[
     {
-        value:1,
+        value:'1',
         name:'Yes',
 
     },
     {
-        value:0,
+        value:'0',
         name:'No',
 
     },
@@ -144,7 +144,7 @@ const form = useForm({
     id:props.list.id,
     title: props.list.title,
     title_slug: props.list.slug,
-    item_featured:Number(props.list.item_featured),
+    item_featured:props.list.item_featured,
     category_id:Number(props.list.category_id),
     sub_category_id:JSON.parse(props.list.sub_category_ids),
     country_id:Number(props.list.country_id),
