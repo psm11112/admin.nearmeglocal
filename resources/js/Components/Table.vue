@@ -4,6 +4,8 @@ import Image from "@/Components/Image.vue"
 import ToggleButton from "@/Components/ToggleButton.vue"
 import {useForm,Link,usePage} from "@inertiajs/vue3";
 import ToastMessageNotification from "@/helper/ToastMessage";
+import Chip from 'primevue/chip';
+
 const baseUrl='/storage/';
 
 const emit= defineEmits(['showView'])
@@ -16,7 +18,8 @@ const props=defineProps({
     userEditName:'',
     imageDisplay:'',
     svg:'',
-    multiList:''
+    multiList:'',
+    view:true
 
 })
 
@@ -96,7 +99,11 @@ function removeSubCategory(id) {
 
                     <span v-if="item.url==null"></span>
                     <span v-if="item.image_url!==null">
-                        <Image v-if="imageDisplay"  :url="usePage().props.path.public+item.image_url" :name="item.name"></Image>
+<!--                        <Image v-if="imageDisplay && !item.city_image"  :url="usePage().props.path.public+item.image_url" :name="item.name"></Image>-->
+                        <Image :style="'w-14 h-14 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500'" v-if="imageDisplay && item.city_image"  :url="usePage().props.path.public+item.city_image" :name="item.city_image"></Image>
+
+                            <Image :style="'w-14 h-14 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500'" v-if="imageDisplay && item.feature_image_url"  :url="usePage().props.path.public+item.feature_image_url" :name="item.title"></Image>
+
                        <span v-if="svg" v-html="item.svg" class="text-2xl"></span>
                     </span>
 
@@ -104,20 +111,11 @@ function removeSubCategory(id) {
             </td>
 
 
-            <td scope="row" class="px-1 py-4">
+            <td v-if="item.title" scope="row" class="px-1 py-4">
                 <div class="flex items-center text-base font-semibold px-1">
-                    {{item.name}}
+                    {{item.title}}
                 </div>
 
-            </td>
-
-
-            <td v-if="item.country_id" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-
-                    <span  v-html="item.country.svg" class="text-2xl"></span>
-
-                </div>
             </td>
             <td v-if="item.category_id" class="px-1 py-4">
                 <div class="flex items-center text-base font-semibold px-1">
@@ -125,6 +123,57 @@ function removeSubCategory(id) {
 
                 </div>
             </td>
+            <td v-if="item.name" scope="row" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+                    {{item.name}}
+                </div>
+
+            </td>
+
+            <td v-if="item.city" scope="row" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+                    {{item.city.city_name}}
+                </div>
+
+            </td>
+
+            <td v-if="item.area_name" scope="row" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+                    {{item.area_name}}
+                </div>
+
+            </td>
+
+            <td v-if="item.state_name" scope="row" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+                    {{item.state_name}}
+                </div>
+
+            </td>
+
+            <td v-if="item.city_name" scope="row" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+                    {{item.city_name}}
+                </div>
+
+            </td>
+
+
+
+            <td v-if="item.state_id" scope="row" class="px-1 py-4">
+                <div class="flex items-center text-base font-semibold px-1">
+                    {{item.states.state_name}}
+                </div>
+
+            </td>
+
+
+            <td v-if="item.country_id" class="px-1 py-4">
+                <div class="flex justify-center items-center text-base font-semibold px-1">
+                    <span  v-html="item.country.svg" class="text-2xl"></span>
+                </div>
+            </td>
+
 
 
             <td v-if="multiList">
@@ -182,6 +231,50 @@ function removeSubCategory(id) {
             </td>
 
 
+            <td v-if="item.item_status">
+                <div class="flex justify-center items-center text-base font-semibold px-1">
+
+                    <Chip v-if="item.item_status === 2" class="pl-0 pr-3 bg-orange-400 text-white">
+                        <span class="bg-orange-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
+                            <span  class="text-sm">P</span>
+
+                            </span>
+                        <span class="ml-2 font-rubik ">
+                            <span class="" >Published</span>
+
+
+                            </span>
+                    </Chip>
+
+                    <Chip v-if="item.item_status ===1" class="pl-0 pr-3 bg-green-400 text-white">
+                        <span class="bg-green-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
+
+                            <span  class="text-sm">S</span>
+                            </span>
+                        <span class="ml-2 font-rubik ">
+
+                             <span class="" >Submit</span>
+
+                            </span>
+                    </Chip>
+
+                    <Chip v-if="item.item_status ===3" class="pl-0 pr-3 bg-red-400 text-white">
+                        <span class="bg-red-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
+
+                            <span  class="text-sm">S</span>
+                            </span>
+                        <span class="ml-2 font-rubik ">
+
+                             <span>Suspended</span>
+
+                            </span>
+                    </Chip>
+
+
+
+                </div>
+
+            </td>
             <td>
                 <div class="px-1 flex items-center">
 
@@ -199,7 +292,7 @@ function removeSubCategory(id) {
                 </button>
 
 
-                <button   @click="$emit('showView',item.id)"  class="viewButton" >
+                <button v-if="view"   @click="$emit('showView',item.id)"  class="viewButton" >
                     <svg class="text-lg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M247.31 124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57 61.26 162.88 48 128 48S61.43 61.26 36.34 86.35C17.51 105.18 9 124 8.69 124.76a8 8 0 0 0 0 6.5c.35.79 8.82 19.57 27.65 38.4C61.43 194.74 93.12 208 128 208s66.57-13.26 91.66-38.34c18.83-18.83 27.3-37.61 27.65-38.4a8 8 0 0 0 0-6.5ZM128 192c-30.78 0-57.67-11.19-79.93-33.25A133.47 133.47 0 0 1 25 128a133.33 133.33 0 0 1 23.07-30.75C70.33 75.19 97.22 64 128 64s57.67 11.19 79.93 33.25A133.46 133.46 0 0 1 231.05 128c-7.21 13.46-38.62 64-103.05 64Zm0-112a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Z"></path></svg>
                 </button>
 

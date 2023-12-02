@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import Pagination from '@/Components/Pagination.vue'
 import Table from '@/Components/Table.vue'
-import {useForm,Link} from "@inertiajs/vue3";
+import {useForm,Link,Head} from "@inertiajs/vue3";
 import {ref} from "vue";
 import Image from "@/Components/Image.vue";
 import Search from '@/Components/Search.vue';
@@ -89,6 +89,7 @@ function changeTerm(term){
                 :deleteRoute="route('category.deleted')"
                 :changeStatusRoute="route('category.change-status')"
                 :userEditName="/category/"
+                :view="true"
             ></Table>
 
         </div>

@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Country;
+use App\Models\ListModel;
 use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StatesRequest extends FormRequest
+class ListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,21 @@ class StatesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255',
-                Rule::unique(State::class,'state_name')->ignore($this->id)]
-        ,
-            'country_id'=>['required']
+            'title' => ['required','string','max:255',
+                Rule::unique(ListModel::class,'title')->ignore($this->id)]
+            ,
+            'title_slug'=>['required'],
+            'country_id'=>['required'],
+            'state_id'=>['required'],
+            'city_id'=>['required'],
+            'area_id'=>['required'],
+            'post_code'=>['required'],
+            'address'=>['required','max:500'],
+
+
+
         ];
+
+
     }
 }

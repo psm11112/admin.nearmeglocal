@@ -56,7 +56,8 @@ class UserController extends Controller
         $user = User::findOrFail($request->id);
         $user->is_active = $request->status[0]['value'];
         $user->save();
-        return to_route('user.index')->with('message', 'User status updated');
+
+        return  to_route('user.index')->with('message', 'User status updated');
 
     }
 

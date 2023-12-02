@@ -130,6 +130,7 @@ function submit(){
                 :changeStatusRoute="route('sub-category.change-status')"
                 :userEditName="/sub-category/"
                 :multiList="true"
+                :view="true"
             ></Table>
 
         </div>

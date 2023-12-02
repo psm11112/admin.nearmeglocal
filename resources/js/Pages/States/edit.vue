@@ -30,7 +30,7 @@ const breadcrumbList=[
 
 
 const form = useForm({
-    name: props.stats.name,
+    name: props.stats.state_name,
     country_id:props.stats.country_id,
     id:props.stats.id
 

@@ -122,6 +122,7 @@ function closeShowView(){
                             :deleteRoute="route('country.deleted')"
                             :changeStatusRoute="route('country.change-status')"
                             :userEditName="/country/"
+                            :view="true"
                         ></Table>
 
                     </div>

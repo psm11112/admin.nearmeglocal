@@ -113,6 +113,7 @@ function closeShowView(){
                         :changeStatusRoute="route('state.change-status')"
                         :userEditName="/state/"
                         :multiList="false"
+                        :view="true"
                     ></Table>
 
                 </div>
@@ -143,7 +144,7 @@ function closeShowView(){
 
                     </div>
                     <div class="flex flex-col items-center pb-10 space-y-2">
-                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{viewData.name}}</h5>
+                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{viewData.state_name}}</h5>
                         <span  class="text-sm font-bold text-gray-500 dark:text-gray-400 flex space-x-2">
                             <div class="flex space-x-2">
                                    <label>Country:</label>

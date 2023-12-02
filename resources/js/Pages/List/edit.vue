@@ -16,12 +16,16 @@ import FileUpload from 'primevue/fileupload';
 import InputSwitch from 'primevue/inputswitch';
 import ErrorMessage from '@/Components/Error.vue'
 import Breadcrumb from '@/Components/Breadcrumb.vue'
+import Chip from 'primevue/chip';
+import Image from '@/Components/Image.vue'
 import ToastMessage from "@/helper/ToastMessage";
 import { useToast } from 'vue-toastification'
 
 
 
 const ToastMessageError = useToast()
+
+
 
 
 
@@ -34,6 +38,8 @@ let stats=ref(null);
 let city=ref(null);
 let area=ref(null);
 let image=ref(null);
+let imageFeature=ref(null)
+let viewData=ref(null);
 
 let hours = "Monday: 10pm to 1pm And 2pm to 5pm\n" +
     "Tuesday: 10pm to 1pm And 2pm to 5pm\n" +
@@ -47,6 +53,7 @@ let center = {lat: '', lng: ''};
 const props = defineProps({
     category: [],
     country:[],
+    list:[]
     // subCategory:[]
 })
 
@@ -123,54 +130,72 @@ let wifiList=[
 ]
 
 const form = useForm({
-    title: null,
-    title_slug: null,
-    category_id:null,
-    sub_category_id:null,
-    country_id:null,
-    city_id:null,
-    state_id:null,
-    area_id:null,
-    post_code:null,
-    address:null,
-    longitude:null,
-    latitude:null,
-    phone_number:null,
-    youtub_video_id:null,
-    description:null,
-    website:null,
-    business_email:null,
-    business_watsapp_url:null,
-    facebook:null,
-    twitter:null,
-    linked_in:null,
-    whatsapp_chat:null,
-    email:null,
-    price_range:null,
-    general_features:null,
-    request_an_appointment:null,
-    wifi:null,
-    hours:hours,
-    banner:null,
-    feature:null,
-    item_featured:false,
-    parking:null,
-    dfr:null
+    id:props.list.id,
+    title: props.list.title,
+    title_slug: props.list.slug,
+    item_featured:props.list.item_featured,
+    category_id:props.list.category_id,
+    sub_category_id:JSON.parse(props.list.sub_category_ids),
+    country_id:props.list.country_id,
+    city_id:props.list.city_id,
+    state_id:props.list.state_id,
+    area_id:props.list.area_id,
+    post_code:props.list.post_code,
+    address:props.list.address,
+    longitude:props.list.longitude,
+    latitude:props.list.latitude,
+    phone_number:props.list.phone_number,
+    youtub_video_id:props.list.youtub_video_id,
+    description:props.list.description,
+    website:props.list.website,
+    business_email:props.list.business_email,
+    business_watsapp_url:props.list.business_watsapp_url,
+    facebook:props.list.facebook,
+    twitter:props.list.twitter,
+    linked_in:props.list.linked_in,
+    whatsapp_chat:props.list.whatsapp_chat,
+    email:props.list.email,
+    price_range:props.list.price_range,
+    general_features:JSON.parse(props.list.general_features),
+    request_an_appointment:props.list.request_an_appointment,
+    wifi:JSON.parse(props.list.wifi),
+    hours:props.list.hours,
+    banner:props.list.banner_image_url,
+    feature:props.list.feature_image_url,
+
+    parking:JSON.parse(props.list.parking),
+    dfr:null,
+    gallery_images:props.list.gallery_images
 })
 
-
-
-
-function selectSubCategory() {
-
-
+onMounted(()=>{
     loading.value = true
     axios.post('/api/sub-category', form).then((res) => {
-
-        console.log(res.data);
         subCategory.value = res.data;
     });
 
+    axios.get('/api/stats/'+form.country_id).then((res)=>{
+        stats.value=res.data;
+    });
+
+    axios.get('/api/city/'+form.state_id).then((res)=>{
+        city.value=res.data;
+    });
+
+    axios.get('/api/area/'+form.city_id).then((res)=>{
+        area.value=res.data;
+    });
+
+
+    loading.value = false
+
+})
+
+function selectSubCategory() {
+    loading.value = true
+    axios.post('/api/sub-category', form).then((res) => {
+        subCategory.value = res.data;
+    });
     loading.value = false
 
 }
@@ -198,7 +223,6 @@ function selectStateByCountry(){
     loading.value = false;
 
 }
-
 function selectCityByStats(){
     loading.value = true;
     axios.get('/api/city/'+form.state_id).then((res)=>{
@@ -207,7 +231,6 @@ function selectCityByStats(){
     loading.value = false;
 
 }
-
 function selectAreaByCity(){
     loading.value=true;
     axios.get('/api/area/'+form.city_id).then((res)=>{
@@ -216,7 +239,6 @@ function selectAreaByCity(){
     loading.value = false;
 
 }
-
 function showMap() {
     window.scrollTo(0, 0);
     hidden.value = false;
@@ -227,10 +249,27 @@ function showMap() {
     }
 
 }
-
+function closeShowView() {
+    hidden.value = true;
+}
 
 function success(){
-    ToastMessage("Validation Error")
+    axios.get('/api/list/view/'+form.id).then((res)=>{
+        //viewData.value=res.data;
+        form.gallery_images=res.data.gallery_images
+
+    });
+
+    ToastMessage()
+
+}
+function submit() {
+
+    form.post(route('list.update'), {
+        preserveScroll: false,
+        onSuccess: () => success(),
+        onError:()=>error()
+    });
 
 }
 
@@ -238,33 +277,34 @@ function error(){
     ToastMessageError.error("Validation Error")
 }
 
-function closeShowView() {
-    hidden.value = true;
-}
-
-function submit() {
-
-    form.post(route('list.store'), {
-        preserveScroll: false,
-        onSuccess: () => success(),
-        onError:()=>error()
-    });
-
-
-
-}
-
 function onAdvancedUpload(e){
-    const file=e.target.files[0];
-
-    image.value=URL.createObjectURL(file);
-
+    image.value=e.files[0].objectURL;
 }
 
+function onAdvancedUploadFeature(e){
+    console.log(e);
+    imageFeature.value=e.files[0].objectURL;
+}
 
 
 function onAdvancedUploadMutipal(e){
     form.dfr=e.files;
+}
+function removeGalleryImage(id){
+
+    form.get('/gallery/remove/'+id, {
+        preserveScroll: false,
+        onSuccess: () => success()
+    });
+
+
+}
+
+function makePublic(id){
+    form.get('/list/public/'+id, {
+        preserveScroll: true,
+        onSuccess: () => success()
+    });
 }
 
 </script>
@@ -278,14 +318,18 @@ function onAdvancedUploadMutipal(e){
         <div class="py-5">
             <Breadcrumb :data="breadcrumbList"></Breadcrumb>
 
-
-
-
             <form>
 
                 <div
-                    class="my-12 mx-auto  md:px-12  p-6 bg-white border border-gray-200 rounded-lg shadow-lg shadow-gray-300/10 dark:bg-gray-800 dark:border-gray-700">
+                    class="my-3 mx-auto  md:px-12  p-6 bg-white border border-gray-200 rounded-lg shadow-lg shadow-gray-300/10 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="p-1 flex justify-end">
+                        <button @click.prevent="makePublic(form.id)" class="bg-purple-600 text-white p-4 rounded-lg flex font-bold">Make List Published
+                            <svg class="animate-waving-hand" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><path fill="currentColor" d="m220.49 59.51l-40-40A12 12 0 0 0 172 16H92a20 20 0 0 0-20 20v20H56a20 20 0 0 0-20 20v140a20 20 0 0 0 20 20h108a20 20 0 0 0 20-20v-20h20a20 20 0 0 0 20-20V68a12 12 0 0 0-3.51-8.49ZM160 212H60V80h67l33 33Zm40-40h-16v-64a12 12 0 0 0-3.51-8.49l-40-40A12 12 0 0 0 132 56H96V40h71l33 33Zm-56-28a12 12 0 0 1-12 12H88a12 12 0 0 1 0-24h44a12 12 0 0 1 12 12Zm0 40a12 12 0 0 1-12 12H88a12 12 0 0 1 0-24h44a12 12 0 0 1 12 12Z"></path></svg>
+
+                        </button>
+                    </div>
                     <small class="text-rose-500 font-bold">* Must Be Required</small>
+
                     <Panel :header="'Category Information'  " toggleable
                            :pt="{
                             header:{class:'backGrounAndText'},
@@ -298,9 +342,9 @@ function onAdvancedUploadMutipal(e){
 
                         <div class="p-2">
                             <div class="flex">
-                            <label  class="formLable">Category
-                                <small class="text-rose-500">*</small>
-                            </label>
+                                <label  class="formLable">Category
+                                    <small class="text-rose-500">*</small>
+                                </label>
 
                             </div>
                             <Dropdown
@@ -323,6 +367,8 @@ function onAdvancedUploadMutipal(e){
 
                              }"
                             />
+
+
                             <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">
                                 <p v-if="form.errors.category_id" class="text-sm text-gray-600">
                                     <ErrorMessage  :message="form.errors.category_id"></ErrorMessage>
@@ -332,6 +378,7 @@ function onAdvancedUploadMutipal(e){
                         <div class="p-2">
                             <label class="formLable ">Sub Category
                                 <small class="text-rose-500">*</small>
+
                             </label>
                             <MultiSelect
                                 :pt="{
@@ -343,15 +390,22 @@ function onAdvancedUploadMutipal(e){
                                 labelContainer:{class:' dark:bg-gray-700 dark:text-white'},
                                 root:{class:'backGrounAndText'},
 
-
                             }"
 
                                 :loading="loading" v-model="form.sub_category_id" :options="subCategory" filter
-                                optionLabel="name" placeholder="Select Cities"
+                                optionLabel="name" placeholder="Select Sub Category"
+
 
                                 class="w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"
                                 display="chip"
                             />
+
+
+
+                            <div class="space-x-5 space-y-2">
+                            <Chip v-for="item in form.sub_category_id" :label="item.name" removable class="bg-green-400 text-white space-x-2" />
+                            </div>
+
 
                             <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">
                                 <p v-if="form.errors.sub_category_id" class="text-sm text-gray-600">
@@ -359,13 +413,12 @@ function onAdvancedUploadMutipal(e){
                                 </p>
                             </Transition>
                         </div>
-                        <div class="p-2">
-                            <Button @click.prevent="fromLoad()" name="Load From" :process="!form.sub_category_id"
-                                    :disableOnly="true"></Button>
-                        </div>
+
                     </Panel>
 
-                    <div v-motion-slide-top v-if="from_load" class="py-2">
+
+
+                    <div v-motion-slide-top  class="py-2">
 
                         <Panel :header="'General Information'  " toggleable
                                :pt="{
@@ -415,13 +468,19 @@ function onAdvancedUploadMutipal(e){
                                         </div>
                                         <input :disabled="loading" type="text" v-model="form.title_slug"
                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               placeholder="name@flowbite.com">
+                                               >
                                     </div>
 
                                 </div>
                                 <div class="p-2">
                                     <label class="formLable ">Item Featured</label>
-                                    <InputSwitch v-model="form.item_featured" />
+
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input v-model="form.item_featured"  type="checkbox" value="" class="sr-only peer"  :checked="form.item_featured" >
+                                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+
+                                    </label>
+
                                 </div>
 
                             </div>
@@ -1021,7 +1080,7 @@ function onAdvancedUploadMutipal(e){
 
                     </div>
 
-                    <div v-motion-slide-top v-if="from_load" class="py-2">
+                    <div v-motion-slide-top  class="py-2">
 
                         <Panel :header="'Upload Image'  " toggleable
                                :pt="{
@@ -1037,11 +1096,12 @@ function onAdvancedUploadMutipal(e){
                                     <label  class="formLable ">Banner Images</label>
                                     <small> minimum ratio suggestion: 800px * 687px, and maximum file size: 5mb</small>
 
+                                    <FileUpload file-limit="1"
 
+                                                auto
 
-                                    <FileUpload fileLimit="1"
-                                                @input="form.banner = $event.target.files[0]" name="demo[]"
-                                                url="/api2/upload" @upload="onAdvancedUpload($event)"
+                                                @input="form.banner = $event.target.files[0]" name="demo"
+                                                url="/api/upload" @upload="onAdvancedUpload($event)"
                                                 :multiple="false" accept="image/jpg/png/svg *"
                                                 :maxFileSize="1000000"
                                                 :pt="{
@@ -1058,8 +1118,10 @@ function onAdvancedUploadMutipal(e){
                                         <template #empty>
                                             <p>Drag and drop files to here to upload.</p>
                                         </template>
-                                    </FileUpload>
 
+                                    </FileUpload>
+                                    <Image  v-if="form.banner && !image"  :url="usePage().props.path.public+form.banner" ></Image>
+                                    <Image  v-if="image"  :url="image" ></Image>
                                 </div>
 
                                 <div class="p-2">
@@ -1067,9 +1129,10 @@ function onAdvancedUploadMutipal(e){
                                     <small> minimum ratio suggestion: 800px * 687px, and maximum file size: 5mb</small>
 
 
-                                    <FileUpload fileLimit="1"
-                                                @input="form.feature = $event.target.files[0]" name="demo[]"
-                                                url="/api2/upload" @upload="onAdvancedUpload($event)"
+                                    <FileUpload file-limit="1"
+                                                auto
+                                                @input="form.feature = $event.target.files[0]" name="demo"
+                                                url="/api/upload" @upload="onAdvancedUploadFeature($event)"
                                                 :multiple="false" accept="image/jpg/png/svg *"
                                                 :maxFileSize="1000000"
                                                 :pt="{
@@ -1084,10 +1147,17 @@ function onAdvancedUploadMutipal(e){
 
                                     >
                                         <template #empty>
+<!--                                            <Image  v-if="form.feature"  :url="usePage().props.path.public+form.feature" ></Image>-->
+
                                             <p>Drag and drop files to here to upload.</p>
                                         </template>
+
+
+
                                     </FileUpload>
 
+                                    <Image  v-if="form.feature && !imageFeature"  :url="usePage().props.path.public+form.feature" ></Image>
+                                    <Image  v-if="imageFeature"  :url="imageFeature" ></Image>
 
                                 </div>
 
@@ -1104,9 +1174,9 @@ function onAdvancedUploadMutipal(e){
 
                                                      @upload="onAdvancedUploadMutipal($event)"
                                                      :multiple="true"
-                                                      accept="image/*" :maxFileSize="1000000"
-                                                    :file-limit="5"
-                                                    :pt="{
+                                                     accept="image/*" :maxFileSize="1000000"
+                                                     :file-limit="5"
+                                                     :pt="{
                                                             content: { class: 'backGrounAndText' },
                                                             buttonbar:{class: 'backGrounAndText'},
                                                             chooseButton:{class:'formButton'},
@@ -1115,9 +1185,22 @@ function onAdvancedUploadMutipal(e){
 
                                                         }">
                                             <template #empty>
+
                                                 <p>Drag and drop files to here to upload.</p>
                                             </template>
                                         </FileUpload>
+                                        <div v-if="form.gallery_images" class="grid grid-cols-2 md:grid-cols-4 space-x-4 ">
+                                            <div v-for="image  in form.gallery_images"  >
+                                                <Image :url="usePage().props.path.public+image.url" class="h-auto  border-2 rounded-lg"  alt=""/>
+                                           <div class=" flex items-center justify-center">
+                                            <button @click.prevent="removeGalleryImage(image.id)" class=" hover:animate-waving-hand bg-rose-600 p-2 rounded-full">
+                                                <svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-40v-8a24 24 0 0 0-24-24h-48a24 24 0 0 0-24 24v8H40a8 8 0 0 0 0 16h8v144a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16V64h8a8 8 0 0 0 0-16ZM96 40a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v8H96Zm96 168H64V64h128Zm-80-104v64a8 8 0 0 1-16 0v-64a8 8 0 0 1 16 0Zm48 0v64a8 8 0 0 1-16 0v-64a8 8 0 0 1 16 0Z"></path></svg>
+
+                                            </button>
+                                           </div>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -1126,15 +1209,17 @@ function onAdvancedUploadMutipal(e){
 
                         <div class="p-5">
 
+
+
                             <button @click.prevent="submit" t
                                     ype="submit"
                                     class="hover:cursor-pointer hover:bg-green-500
                                     hover:duration-700 text-white
-                                    font-bold w-1/2 h-full bg-purple-600 rounded p-5 ">
+                                    font-bold w-1/2 h-full bg-purple-600 rounded p-5 flex justify-center">
 
-                                <svg class="items-center"  v-if="form.processing" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"></animateTransform></path></svg>
+                                <svg class="justify-center items-center"  v-if="form.processing" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"></animateTransform></path></svg>
 
-                                <span v-else>Create New List</span>
+                                <span v-else>Update List</span>
 
 
 

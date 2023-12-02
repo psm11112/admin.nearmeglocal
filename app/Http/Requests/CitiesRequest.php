@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Cities;
 use App\Models\Country;
-use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StatesRequest extends FormRequest
+class CitiesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,11 @@ class StatesRequest extends FormRequest
     public function rules()
     {
         return [
+            'state'=>['required'],
             'name' => ['required','string','max:255',
-                Rule::unique(State::class,'state_name')->ignore($this->id)]
-        ,
-            'country_id'=>['required']
+                Rule::unique(Cities::class,'city_name')->ignore($this->id)],
+
+            'slug'=>['required'],
         ];
     }
 }

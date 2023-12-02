@@ -60,6 +60,33 @@ Route::controller(\App\Http\Controllers\SubCategoryController::class)->group(fun
 
 })->middleware(['auth', 'verified']);
 
+
+
+Route::controller(\App\Http\Controllers\CitiesController::class)->group(function () {
+
+    Route::get('/cities','index')->name('cities.index');
+    Route::post('/cities/store','store')->name('cities.store');
+    Route::get('/cities/create','create')->name('cities.create');
+    Route::post('/cities/deleted','itemDeleted')->name('cities.deleted');
+    Route::post('/cities/change-status','changeStatus')->name('cities.change-status');
+    Route::get('/cities/{id}','edit')->name('cities.edit');
+    Route::post('/cities/delete-image','deleteImage')->name('cities.delete-image');
+    Route::post('/cities/update','update')->name('cities.update');
+})->middleware(['auth', 'verified']);
+
+
+Route::controller(\App\Http\Controllers\AreasController::class)->group(function () {
+
+    Route::get('/area','index')->name('area.index');
+    Route::post('/area/store','store')->name('area.store');
+    Route::get('/area/create','create')->name('area.create');
+    Route::post('/area/deleted','itemDeleted')->name('area.deleted');
+    Route::post('/area/change-status','changeStatus')->name('area.change-status');
+    Route::get('/area/{id}','edit')->name('area.edit');
+    Route::post('/area/update','update')->name('area.update');
+})->middleware(['auth', 'verified']);
+
+
 Route::controller(\App\Http\Controllers\Admin\CountryController::class)->group(function () {
 
     Route::post('/country/update','update')->name('country.update');
@@ -100,11 +127,28 @@ Route::controller(\App\Http\Controllers\UserController::class)->group(function (
 Route::controller(\App\Http\Controllers\ListController::class)->group(function () {
     Route::get('/list','index')->name('list.index');
     Route::get('/list/create','create')->name('list.create');
+    Route::post('/list/store','store')->name('list.store');
+    Route::post('/list/change-status','changeStatus')->name('list.change-status');
+    Route::post('/list/deleted','itemDeleted')->name('list.delete');
+    Route::get('/list/{id}','edit')->name('list.edit');
+    Route::post('/list/update','update')->name('list.update');
+    Route::get('/list/public/{id}','makeApplicationPublic')->name('list.public');
+});
+
+Route::controller(\App\Http\Controllers\GalleryController::class)->group(function () {
+    Route::get('/gallery/remove/{id}','removeImage')->name('gallery.remove');
+
+
+
+
+
+
 
 
 
 
 });
+
 
 
 Route::controller(\App\Http\Controllers\SettingController::class)->group(function () {

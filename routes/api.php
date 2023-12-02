@@ -30,8 +30,24 @@ Route::get('/country/view/{id}', [\App\Http\Controllers\API\CommonController::cl
 Route::get('/state/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getStates'])->name('state-view');
 Route::get('/category/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getCategory'])->name('category-view');
 Route::get('/sub-category/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getSubCategory'])->name('sub-category-view');
+Route::get('/area/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getArea'])->name('area-view');
+
 Route::post('/sub-category', [\App\Http\Controllers\API\CommonController::class, 'getSubCategoryByCategory'])->name('sub-category');
 Route::get('/sub-category/all', [\App\Http\Controllers\API\CommonController::class, 'getAllSubCategory'])->name('sub-category.all');
+Route::get('/states/all', [\App\Http\Controllers\API\CommonController::class, 'getAllStates'])->name('states.all');
+Route::get('/cities/all', [\App\Http\Controllers\API\CommonController::class, 'getAllCity'])->name('cites.all');
+Route::get('/cities/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getCity'])->name('cites-view');
+
+Route::get('/slug/{name}', [\App\Http\Controllers\API\CommonController::class, 'getSlug'])->name('slug');
+
+Route::get('/stats/{country_id}', [\App\Http\Controllers\API\CommonController::class, 'getStatsByCountryId'])->name('country.stats');
+Route::get('/city/{stats_id}', [\App\Http\Controllers\API\CommonController::class, 'getCityByStatsId'])->name('stats.city');
+Route::get('/area/{city_id}', [\App\Http\Controllers\API\CommonController::class, 'getAreaByCityId'])->name('city.area');
+Route::post('/upload', [\App\Http\Controllers\API\CommonController::class, 'upload']);
+
+Route::get('/list/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getList'])->name('list-view');
+
+
 
 
 

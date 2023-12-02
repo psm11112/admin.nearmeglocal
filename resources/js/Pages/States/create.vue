@@ -42,6 +42,7 @@ function success(){
 }
 
 function submit(){
+
     form.post(route('state.store'),{
         preserveScroll: true,
         onSuccess: () =>success()

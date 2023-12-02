@@ -13,8 +13,10 @@ class StatesController extends Controller
 {
     public function index(Request $request){
         $states=State::with('country')->when($request->term,function($query) use ($request)  {
-            $query->where('name','like','%'.$request->term.'%');
+            $query->where('state_name','like','%'.$request->term.'%');
         })->paginate(config('service.pagination'))->withQueryString();
+
+
         return Inertia::render('States/index',['states'=>$states]);
 
     }
@@ -26,11 +28,9 @@ class StatesController extends Controller
         ]);
     }
     public function store(StatesRequest $request){
-
-
         $stats=new State();
-        $stats->name=$request->name;
-        $stats->sku=Str::slug($request->name);
+        $stats->state_name=$request->name;
+        $stats->state_slug=Str::slug($request->name);
         $stats->country_id=$request->country_id;
         $stats->save();
         return to_route('state.index')->with('message','States successfully added');
@@ -51,8 +51,8 @@ class StatesController extends Controller
 
     public function update(StatesRequest $request){
         $stats=State::FindOrFail($request->id);
-        $stats->name=$request->name;
-        $stats->sku=Str::slug($request->name);
+        $stats->state_name=$request->name;
+        $stats->state_slug=Str::slug($request->name);
         $stats->country_id=$request->country_id;
         $stats->save();
 

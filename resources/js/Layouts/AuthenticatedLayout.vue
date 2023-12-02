@@ -354,23 +354,76 @@ const [show] = useAutoAnimate({
                 </li>
 
                 <li>
-                    <a href="#" class="navCus group font-rubik">
-                        <svg class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><g fill="#888888"><path d="M215 168.71a96.42 96.42 0 0 1-30.54 37l-9.36-9.37a8 8 0 0 0-3.63-2.09L150 188.59a8 8 0 0 1-5.88-8.9l2.38-16.2a8 8 0 0 1 4.84-6.22l30.46-12.66a8 8 0 0 1 8.47 1.49ZM159.89 105l22.17-25.8A8 8 0 0 0 184 74V50A96 96 0 0 0 50.49 184.65l9.92-6.52a8 8 0 0 0 3.59-6.64l.21-36.23a8.06 8.06 0 0 1 1.35-4.41l20.94-31.3a8 8 0 0 1 11.34-2l19.81 13a8.06 8.06 0 0 0 5.77 1.45l31.46-4.26a8 8 0 0 0 5.01-2.74Z" opacity=".2"></path><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 16a87.5 87.5 0 0 1 48 14.28V74l-22.17 25.74l-31.47 4.26l-.31-.22l-19.67-12.86a16 16 0 0 0-22.51 4.18l-20.94 31.3a16 16 0 0 0-2.7 8.81L56 171.44l-3.27 2.15A88 88 0 0 1 128 40ZM62.29 186.47l2.52-1.65A16 16 0 0 0 72 171.53l.21-36.23L93.17 104a3.62 3.62 0 0 0 .32.22l19.67 12.87a15.94 15.94 0 0 0 11.35 2.77l31.49-4.27a16 16 0 0 0 10-5.41l22.17-25.76A16 16 0 0 0 192 74v-6.33A87.87 87.87 0 0 1 211.77 155l-16.14-14.76a16 16 0 0 0-16.93-3l-30.46 12.65a16.08 16.08 0 0 0-9.68 12.45l-2.39 16.19a16 16 0 0 0 11.77 17.81L169.4 202l2.36 2.37a87.88 87.88 0 0 1-109.47-17.9ZM185 195l-4.3-4.31a16 16 0 0 0-7.26-4.18L152 180.85l2.39-16.19L184.84 152L205 170.48A88.43 88.43 0 0 1 185 195Z"></path></g></svg>
-                        <Link class="ml-3" :href="route('country.index')">
-                            Country
+                    <a href="#" class="navCus group">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><path fill="currentColor" d="m216.49 79.52l-56-56A12 12 0 0 0 152 20H56a20 20 0 0 0-20 20v176a20 20 0 0 0 20 20h144a20 20 0 0 0 20-20V88a12 12 0 0 0-3.51-8.48ZM160 57l23 23h-23ZM60 212V44h76v48a12 12 0 0 0 12 12h48v108Zm112-80a12 12 0 0 1-12 12H96a12 12 0 0 1 0-24h64a12 12 0 0 1 12 12Zm0 40a12 12 0 0 1-12 12H96a12 12 0 0 1 0-24h64a12 12 0 0 1 12 12Z"></path></svg>
+
+                        <Link class="ml-3" :href="route('list.index')">
+                            List
                         </Link>
                     </a>
                 </li>
+
+<!--                <li>-->
+<!--                    <a href="#" class="navCus group font-rubik">-->
+<!--                        <svg class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><g fill="#888888"><path d="M215 168.71a96.42 96.42 0 0 1-30.54 37l-9.36-9.37a8 8 0 0 0-3.63-2.09L150 188.59a8 8 0 0 1-5.88-8.9l2.38-16.2a8 8 0 0 1 4.84-6.22l30.46-12.66a8 8 0 0 1 8.47 1.49ZM159.89 105l22.17-25.8A8 8 0 0 0 184 74V50A96 96 0 0 0 50.49 184.65l9.92-6.52a8 8 0 0 0 3.59-6.64l.21-36.23a8.06 8.06 0 0 1 1.35-4.41l20.94-31.3a8 8 0 0 1 11.34-2l19.81 13a8.06 8.06 0 0 0 5.77 1.45l31.46-4.26a8 8 0 0 0 5.01-2.74Z" opacity=".2"></path><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 16a87.5 87.5 0 0 1 48 14.28V74l-22.17 25.74l-31.47 4.26l-.31-.22l-19.67-12.86a16 16 0 0 0-22.51 4.18l-20.94 31.3a16 16 0 0 0-2.7 8.81L56 171.44l-3.27 2.15A88 88 0 0 1 128 40ZM62.29 186.47l2.52-1.65A16 16 0 0 0 72 171.53l.21-36.23L93.17 104a3.62 3.62 0 0 0 .32.22l19.67 12.87a15.94 15.94 0 0 0 11.35 2.77l31.49-4.27a16 16 0 0 0 10-5.41l22.17-25.76A16 16 0 0 0 192 74v-6.33A87.87 87.87 0 0 1 211.77 155l-16.14-14.76a16 16 0 0 0-16.93-3l-30.46 12.65a16.08 16.08 0 0 0-9.68 12.45l-2.39 16.19a16 16 0 0 0 11.77 17.81L169.4 202l2.36 2.37a87.88 87.88 0 0 1-109.47-17.9ZM185 195l-4.3-4.31a16 16 0 0 0-7.26-4.18L152 180.85l2.39-16.19L184.84 152L205 170.48A88.43 88.43 0 0 1 185 195Z"></path></g></svg>-->
+<!--                        <Link class="ml-3" :href="route('country.index')">-->
+<!--                            Country-->
+<!--                        </Link>-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                <li>-->
+<!--                    <a href="#" class="navCus group font-rubik">-->
+<!--                        <svg  class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24"><path fill="#888888" d="M16.95 11.95a6.996 6.996 0 0 0 1.858-6.582l2.495-1.07a.5.5 0 0 1 .697.46V19l-7 3l-6-3l-6.303 2.701a.5.5 0 0 1-.697-.46V7l3.129-1.341a6.993 6.993 0 0 0 1.921 6.29L12 16.9l4.95-4.95Zm-1.414-1.414L12 14.07l-3.536-3.535a5 5 0 1 1 7.072 0Z"></path></svg>-->
+<!--                        <Link class="ml-3" :href="route('state.index')">-->
+<!--                            States-->
+<!--                        </Link>-->
+<!--                    </a>-->
+<!--                </li>-->
 
                 <li>
-                    <a href="#" class="navCus group font-rubik">
-                        <svg  class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24"><path fill="#888888" d="M16.95 11.95a6.996 6.996 0 0 0 1.858-6.582l2.495-1.07a.5.5 0 0 1 .697.46V19l-7 3l-6-3l-6.303 2.701a.5.5 0 0 1-.697-.46V7l3.129-1.341a6.993 6.993 0 0 0 1.921 6.29L12 16.9l4.95-4.95Zm-1.414-1.414L12 14.07l-3.536-3.535a5 5 0 1 1 7.072 0Z"></path></svg>
-                        <Link class="ml-3" :href="route('state.index')">
-                            States
-                        </Link>
-                    </a>
-                </li>
+                    <button type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-500 font-bold  rounded-lg group hover:bg-gray-100 hover:duration-500  hover:delay-300 hover:text-purple-500 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="localtionManagment" data-collapse-toggle="localtionManagment">
 
+
+                        <svg class="hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M215 168.71a96.42 96.42 0 0 1-30.54 37l-9.36-9.37a8 8 0 0 0-3.63-2.09L150 188.59a8 8 0 0 1-5.88-8.9l2.38-16.2a8 8 0 0 1 4.84-6.22l30.46-12.66a8 8 0 0 1 8.47 1.49ZM159.89 105l22.17-25.8A8 8 0 0 0 184 74V50A96 96 0 0 0 50.49 184.65l9.92-6.52a8 8 0 0 0 3.59-6.64l.21-36.23a8.06 8.06 0 0 1 1.35-4.41l20.94-31.3a8 8 0 0 1 11.34-2l19.81 13a8.06 8.06 0 0 0 5.77 1.45l31.46-4.26a8 8 0 0 0 5.01-2.74Z" opacity=".2"></path><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 16a87.5 87.5 0 0 1 48 14.28V74l-22.17 25.74l-31.47 4.26l-.31-.22l-19.67-12.86a16 16 0 0 0-22.51 4.18l-20.94 31.3a16 16 0 0 0-2.7 8.81L56 171.44l-3.27 2.15A88 88 0 0 1 128 40ZM62.29 186.47l2.52-1.65A16 16 0 0 0 72 171.53l.21-36.23L93.17 104a3.62 3.62 0 0 0 .32.22l19.67 12.87a15.94 15.94 0 0 0 11.35 2.77l31.49-4.27a16 16 0 0 0 10-5.41l22.17-25.76A16 16 0 0 0 192 74v-6.33A87.87 87.87 0 0 1 211.77 155l-16.14-14.76a16 16 0 0 0-16.93-3l-30.46 12.65a16.08 16.08 0 0 0-9.68 12.45l-2.39 16.19a16 16 0 0 0 11.77 17.81L169.4 202l2.36 2.37a87.88 87.88 0 0 1-109.47-17.9ZM185 195l-4.3-4.31a16 16 0 0 0-7.26-4.18L152 180.85l2.39-16.19L184.84 152L205 170.48A88.43 88.43 0 0 1 185 195Z"></path></g></svg>
+
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Location Mater</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+
+                    <ul   id="localtionManagment" class="hidden py-2 space-y-2">
+                        <li class="hover:animate-bounce">
+
+                            <Link :href="route('country.index')"
+                                  class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Country</Link>
+                        </li>
+                        <li class="hover:animate-bounce">
+
+                            <Link  :href="route('state.index')"
+                                   class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">States</Link>
+                        </li>
+
+                        <li class="hover:animate-bounce">
+
+                            <Link  :href="route('cities.index')"
+                                   class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">City</Link>
+                        </li>
+
+                        <li class="hover:animate-bounce">
+
+                            <Link  :href="route('area.index')"
+                                   class="flex items-center w-full p-2 text-gray-400 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Areas</Link>
+                        </li>
+
+                    </ul>
+                </li>
                 <li>
                     <button type="button"
                             class="flex items-center w-full p-2 text-base text-gray-500 font-bold  rounded-lg group hover:bg-gray-100 hover:duration-500  hover:delay-300 hover:text-purple-500 dark:text-white dark:hover:bg-gray-700"
