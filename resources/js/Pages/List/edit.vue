@@ -20,9 +20,6 @@ import Chip from 'primevue/chip';
 import Image from '@/Components/Image.vue'
 import ToastMessage from "@/helper/ToastMessage";
 import { useToast } from 'vue-toastification'
-
-
-
 const ToastMessageError = useToast()
 
 
@@ -188,7 +185,8 @@ onMounted(()=>{
     });
 
 
-    console.log(stats.value);
+
+    console.log(form);
 
 
     loading.value = false
