@@ -6,7 +6,7 @@ export default function GetValue(value) {
 
     function setValue(value){
 
-        if(value ==1){
+        if(value==1){
             rt= true
         }else{
             rt= false

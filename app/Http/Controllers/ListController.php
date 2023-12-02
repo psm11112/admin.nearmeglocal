@@ -208,11 +208,6 @@ class ListController extends Controller
 
     public function store(ListRequest $request){
 
-
-
-
-
-
         if ($request->hasFile('banner')) {
             $bannerImage = $request->file('banner')->store('image/banner', 'public');
         }

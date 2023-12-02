@@ -20,13 +20,27 @@ import Chip from 'primevue/chip';
 import Image from '@/Components/Image.vue'
 import ToastMessage from "@/helper/ToastMessage";
 import { useToast } from 'vue-toastification'
+import GetValue from "@/helper/GetValue";
 const ToastMessageError = useToast()
 
 
 
 
+const value=GetValue()
 
 
+let itemFeaturedList=[
+    {
+        value:1,
+        name:'Yes',
+
+    },
+    {
+        value:0,
+        name:'No',
+
+    },
+]
 let loading = ref(false);
 const subCategory = ref();
 let from_load = ref(false)
@@ -475,13 +489,35 @@ function makePublic(id){
 
                                 </div>
                                 <div class="p-2">
-                                    <label class="formLable ">Item Featured</label>
+                                    <label class="formLable ">Item Featured
 
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input v-model="form.item_featured"  type="checkbox" value="" class="sr-only peer"  :checked="form.item_featured" >
-                                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
 
                                     </label>
+
+                                    <Dropdown
+                                        :virtualScrollerOptions="{ lazy: true, onLazyLoad: true, itemSize: 48, showLoader: true, loading: false }"
+                                        v-model="form.item_featured"
+                                        :options="itemFeaturedList"
+                                        option-value="value"
+                                        option-label="name"
+                                        placeholder="Select a Featured"
+
+                                        :class="form.errors.item_featured?'errorInput':'w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"
+
+                                        :pt="{
+                                list: { class: 'backGrounAndText' },
+                                filterInput:{class:'backGrounAndText'},
+                                input:{class:'input'},
+                                header:{class:'backGrounAndText'},
+                                filterContainer:{class:'backGrounAndText'},
+
+                             }"
+                                    />
+                                    <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">
+                                        <p v-if="form.errors.item_featured" class="text-sm text-gray-600">
+                                            <ErrorMessage  :message="form.errors.item_featured"></ErrorMessage>
+                                        </p>
+                                    </Transition>
 
                                 </div>
 

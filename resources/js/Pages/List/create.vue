@@ -50,6 +50,19 @@ const props = defineProps({
     // subCategory:[]
 })
 
+
+let itemFeaturedList=[
+    {
+        value:1,
+        name:'Yes',
+
+    },
+    {
+        value:0,
+        name:'No',
+
+    },
+]
 let generalFeatures=[
     {
         name:'Offering a Deal'
@@ -153,24 +166,17 @@ const form = useForm({
     hours:hours,
     banner:null,
     feature:null,
-    item_featured:false,
+    item_featured:null,
     parking:null,
     dfr:null
 })
 
-
-
-
 function selectSubCategory() {
-
-
     loading.value = true
     axios.post('/api/sub-category', form).then((res) => {
-
         console.log(res.data);
         subCategory.value = res.data;
     });
-
     loading.value = false
 
 }
@@ -277,9 +283,6 @@ function onAdvancedUploadMutipal(e){
 
         <div class="py-5">
             <Breadcrumb :data="breadcrumbList"></Breadcrumb>
-
-
-
 
             <form>
 
@@ -421,7 +424,32 @@ function onAdvancedUploadMutipal(e){
                                 </div>
                                 <div class="p-2">
                                     <label class="formLable ">Item Featured</label>
-                                    <InputSwitch v-model="form.item_featured" />
+
+
+                                    <Dropdown
+                                        :virtualScrollerOptions="{ lazy: true, onLazyLoad: true, itemSize: 48, showLoader: true, loading: false }"
+                                        v-model="form.item_featured"
+                                        :options="itemFeaturedList"
+                                        option-value="value"
+                                        option-label="name"
+                                        placeholder="Select a Featured"
+
+                                        :class="form.errors.item_featured?'errorInput':'w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"
+
+                                        :pt="{
+                                list: { class: 'backGrounAndText' },
+                                filterInput:{class:'backGrounAndText'},
+                                input:{class:'input'},
+                                header:{class:'backGrounAndText'},
+                                filterContainer:{class:'backGrounAndText'},
+
+                             }"
+                                    />
+                                    <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">
+                                        <p v-if="form.errors.item_featured" class="text-sm text-gray-600">
+                                            <ErrorMessage  :message="form.errors.item_featured"></ErrorMessage>
+                                        </p>
+                                    </Transition>
                                 </div>
 
                             </div>
