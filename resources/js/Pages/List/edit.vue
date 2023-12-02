@@ -170,21 +170,25 @@ const form = useForm({
 
 onMounted(()=>{
     loading.value = true
-    axios.post('/api/sub-category', form).then((res) => {
+    axios.post(route('sub-category'), form).then((res) => {
         subCategory.value = res.data;
     });
 
-    axios.get('/api/stats/'+form.country_id).then((res)=>{
+    axios.get(route('country.stats',{'country_id':form.country_id})).then((res)=>{
+
         stats.value=res.data;
     });
 
-    axios.get('/api/city/'+form.state_id).then((res)=>{
+    axios.get(route('stats.city',{stats_id:form.state_id})).then((res)=>{
         city.value=res.data;
     });
 
-    axios.get('/api/area/'+form.city_id).then((res)=>{
+    axios.get(route('city.area',{city_id:form.city_id})).then((res)=>{
         area.value=res.data;
     });
+
+
+    console.log(stats.value);
 
 
     loading.value = false
