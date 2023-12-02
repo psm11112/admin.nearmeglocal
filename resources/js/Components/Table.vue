@@ -4,11 +4,14 @@ import Image from "@/Components/Image.vue"
 import ToggleButton from "@/Components/ToggleButton.vue"
 import {useForm,Link,usePage} from "@inertiajs/vue3";
 import ToastMessageNotification from "@/helper/ToastMessage";
+import GetValue from "@/helper/GetValue.js"
 import Chip from 'primevue/chip';
 
 const baseUrl='/storage/';
 
 const emit= defineEmits(['showView'])
+
+const value=GetValue()
 
 const props=defineProps({
     tableHeader:[],
@@ -234,7 +237,7 @@ function removeSubCategory(id) {
             <td v-if="item.item_status">
                 <div class="flex justify-center items-center text-base font-semibold px-1">
 
-                    <Chip v-if="item.item_status === 2" class="pl-0 pr-3 bg-orange-400 text-white">
+                    <Chip v-if="item.item_status == 2" class="pl-0 pr-3 bg-orange-400 text-white">
                         <span class="bg-orange-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
                             <span  class="text-sm">P</span>
 
@@ -246,7 +249,7 @@ function removeSubCategory(id) {
                             </span>
                     </Chip>
 
-                    <Chip v-if="item.item_status ===1" class="pl-0 pr-3 bg-green-400 text-white">
+                    <Chip v-if="item.item_status ==1" class="pl-0 pr-3 bg-green-400 text-white">
                         <span class="bg-green-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
 
                             <span  class="text-sm">S</span>
@@ -258,7 +261,7 @@ function removeSubCategory(id) {
                             </span>
                     </Chip>
 
-                    <Chip v-if="item.item_status ===3" class="pl-0 pr-3 bg-red-400 text-white">
+                    <Chip v-if="item.item_status ==3" class="pl-0 pr-3 bg-red-400 text-white">
                         <span class="bg-red-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
 
                             <span  class="text-sm">S</span>
@@ -278,7 +281,9 @@ function removeSubCategory(id) {
             <td>
                 <div class="px-1 flex items-center">
 
-                    <ToggleButton  @statusChange="changeStatus" :id="item.id" :check="item.is_active" :processing="form.processing" ></ToggleButton>
+
+
+                    <ToggleButton  @statusChange="changeStatus" :id="item.id" :check="value.setValue(item.is_active)" :processing="form.processing" ></ToggleButton>
                 </div>
             </td>
             <td class="py-4 space-x-2 ">
