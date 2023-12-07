@@ -137,16 +137,6 @@ Route::controller(\App\Http\Controllers\ListController::class)->group(function (
 
 Route::controller(\App\Http\Controllers\GalleryController::class)->group(function () {
     Route::get('/gallery/remove/{id}','removeImage')->name('gallery.remove');
-
-
-
-
-
-
-
-
-
-
 });
 
 
@@ -171,7 +161,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get("/admin-login",[\App\Http\Controllers\DashbordController::class,'loginDirect'])->name('admin.dashbord');
+Route::get("/admin-login/{token}",[\App\Http\Controllers\DashbordController::class,'loginDirect'])->name('admin.dashbord');
 
 
 require __DIR__.'/auth.php';

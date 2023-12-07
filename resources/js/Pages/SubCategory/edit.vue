@@ -15,7 +15,8 @@ import MultiSelect from 'primevue/multiselect';
 
 const props=defineProps({
     subCategory:[],
-    category:[]
+    category:[],
+    sub_category_list:[]
 })
 
 
@@ -44,7 +45,7 @@ const form = useForm({
     sku: props.subCategory.sku,
     photo:'',
     old_image:props.subCategory.image_url,
-    child_category_id:props.subCategory.children
+    child_category_id:props.subCategory.parent_id
 
 
 })
@@ -62,6 +63,21 @@ const breadcrumbList=[
     },
 ]
 
+function getChildCat(){
+
+
+    // if(props.subCategory.children){
+    //     return props.subCategory.children[0]['id'];
+    // }
+    // else if(props.subCategory.children[0]['children']){
+    //
+    //     return  props.subCategory.children[0]['children'][0]['id']
+    // }else if(props.subCategory.children[0]['children'][0]['children']){
+    //     return  props.subCategory.children[0]['children'][0]['children'];
+    // }
+
+
+}
 function previewImage(e){
     const file=e.target.files[0];
 
@@ -101,8 +117,7 @@ function deleteImage(){
     <Head title="Category"/>
     <AuthenticatedLayout>
         <div class="formTitle">Update Sub Category</div>
-
-
+{{subCategory}}
 
         <div class="py-5">
 
@@ -172,6 +187,49 @@ function deleteImage(){
                     </div>
 
 
+                    <div class="grid gap-6 mb-6 md:grid-cols-1">
+                        <div>
+
+                            <label for="name" class="formLable" >Child Category
+
+
+                            </label>
+                            <!--                             <MultiSelect-->
+                            <!--                                :virtualScrollerOptions="{ lazy: true, onLazyLoad: true, itemSize: 48, showLoader: true, loading: false }"-->
+                            <!--                                v-model="form.child_category_id"-->
+                            <!--                                :options="subCategoryList"-->
+                            <!--                                option-value="id"-->
+                            <!--                                option-label="name"-->
+                            <!--                                placeholder="Select a Category"-->
+                            <!--                                filter-->
+                            <!--                                :class="form.errors.category_id?'errorInput':'w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"-->
+                            <!--                            />-->
+
+                            <Dropdown
+                                :pt="{
+                                list: { class: 'backGrounAndText' },
+                                filterInput:{class:'backGrounAndText'},
+                                input:{class:'input'},
+                                header:{class:'backGrounAndText'},
+                                filterContainer:{class:'backGrounAndText'},
+                                labelContainer:{class:' dark:bg-gray-700 dark:text-white'},
+                                root:{class:'backGrounAndText'},
+
+
+                            }"
+
+                                :loading="loading"  v-model="form.child_category_id" :options="sub_category_list" filter option-label="category_name" option-value="category_id" placeholder="Select Cities"
+
+                                class="w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"
+                                display="chip"
+                            />
+                            <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition delay-300 duration-700 ease-in-out">
+                                <p v-if="form.errors.child_category_id" class="text-sm text-gray-600">
+                                    <ErrorMessage  :message="form.errors.child_category_id"></ErrorMessage>
+                                </p>
+                            </Transition>
+                        </div>
+                    </div>
 
 
                     <div  class="flex p-2 justify-center items-center">

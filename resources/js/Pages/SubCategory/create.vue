@@ -14,7 +14,8 @@ import MultiSelect from 'primevue/multiselect';
 
 
 const props=defineProps({
-    category:[]
+    category:[],
+    sub_category:[]
 })
 
 const image=ref(null);
@@ -168,7 +169,7 @@ onMounted(() => {
 <!--                                :class="form.errors.category_id?'errorInput':'w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"-->
 <!--                            />-->
 
-                            <MultiSelect
+                            <Dropdown
                                 :pt="{
                                 list: { class: 'backGrounAndText' },
                                 filterInput:{class:'backGrounAndText'},
@@ -181,8 +182,8 @@ onMounted(() => {
 
                             }"
 
-                                :loading="loading"  v-model="form.child_category_id" :options="subCategoryList" filter optionLabel="name" placeholder="Select Cities"
-                                :maxSelectedLabels="3"
+                                :loading="loading"  v-model="form.child_category_id" :options="sub_category" filter option-label="category_name" option-value="category_id" placeholder="Select Cities"
+
                                 class="w-full bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'"
                                 display="chip"
                             />

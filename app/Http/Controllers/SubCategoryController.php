@@ -33,8 +33,10 @@ class SubCategoryController extends Controller
     }
     public function create(){
         $category=Category::select('id','name')->get();
+        $printable_categories = new SubCategory();
+        $printable_categories = $printable_categories->getPrintableCategories();
 
-        return Inertia::render('SubCategory/create',['category'=>$category]);
+        return Inertia::render('SubCategory/create',['category'=>$category,'sub_category'=>$printable_categories]);
     }
 
     public function store(SubCategoryRequest $request){
@@ -53,12 +55,13 @@ class SubCategoryController extends Controller
         $this->modelName->image_url=$image_path;
         $this->modelName->save();
 
-        foreach ($request->child_category_id as $childCategory ){
-            $ch=SubCategory::find($childCategory['id']);
+
+//        foreach ($request->child_category_id as $childCategory ){
+            $ch=SubCategory::find($request->child_category_id);
             $ch->parent_id=$this->modelName->id;
             $ch->save();
 
-        }
+      //  }
 
         return to_route($this->routeName.'.index')->with('message',$this->routeName.' Successfully Added');
 
@@ -71,9 +74,13 @@ class SubCategoryController extends Controller
         $this->modelName=SubCategory::with(['children','ParentCategory'])->FindOrFail($id);
         $category=Category::select('id','name')->get();
 
+        $printable_categories = new SubCategory();
+        $printable_categories = $printable_categories->getPrintableCategories();
+
         return Inertia::render('SubCategory/edit',[
             'subCategory'=>$this->modelName,
-            'category'=>$category
+            'category'=>$category,
+            'sub_category_list'=>$printable_categories,
 
         ]);
 
@@ -82,7 +89,9 @@ class SubCategoryController extends Controller
 
     public function update(Request $request){
 
+
         $this->modelName= SubCategory::FindOrFail($request->id);
+
 
         $image_path=null;
 
@@ -113,7 +122,9 @@ class SubCategoryController extends Controller
 
         $this->modelName->image_url=$imageUrl;
 
+        $this->modelName->parent_id=$request->child_category_id;
         $this->modelName->save();
+
 
 
 

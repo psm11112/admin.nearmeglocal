@@ -13,6 +13,8 @@ use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
+
 
 class CommonController extends ResponseController
 {
@@ -39,7 +41,7 @@ class CommonController extends ResponseController
         return response()->json($subCategory, 200);
     }
     public function getSubCategoryByCategory(Request $request){
-        $subCategory=SubCategory::where('category_id',$request->category_id)->get();
+        $subCategory=Category::where('parent_id',$request->category_id)->get();
         return response()->json($subCategory, 200);
     }
     public function getAllSubCategory(){
@@ -112,6 +114,12 @@ class CommonController extends ResponseController
     public function getList($id){
         $list=ListModel::with('gallery_images')->FindOrFail($id);
         return response()->json($list, 200);
+    }
+
+    public function getEncryptString($id){
+       $token= Crypt::encryptString($id);
+        return response()->json($token, 200);
+
     }
 
 

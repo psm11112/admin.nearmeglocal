@@ -1,12 +1,13 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import Pagination from '@/Components/Pagination.vue'
-import Table from '@/Components/Table.vue'
+// import Table from '@/Components/Table.vue'
 import {useForm,Link,Head} from "@inertiajs/vue3";
 import {ref} from "vue";
 import Image from "@/Components/Image.vue";
 import Search from '@/Components/Search.vue';
 import Breadcrumb from "@/Components/Breadcrumb.vue"
+import Table from '@/Components/TableNewHeder.vue'
 
 const props=defineProps({
     'category':[]
@@ -73,7 +74,6 @@ function changeTerm(term){
                 </div>
 
                 <!-- Dropdown menu -->
-
             </div>
 
 
@@ -82,8 +82,8 @@ function changeTerm(term){
         <div class="flex justify-center" v-if="!form.processing && category.data.length" >
             <Table
                 :imageDisplay="true"
-                :svg="true"
-                :tableHeader="['','Name','Status','Action']"
+                :svg="false"
+                :tableHeader="['','Name','Parent Category','Status','Action']"
                 :data="category"
                 @showView="showView"
                 :deleteRoute="route('category.deleted')"

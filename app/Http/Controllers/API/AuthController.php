@@ -149,4 +149,5 @@ class AuthController extends ResponseController
         }
 
     }
+
 }

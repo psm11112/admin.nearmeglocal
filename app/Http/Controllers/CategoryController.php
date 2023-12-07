@@ -27,17 +27,39 @@ class CategoryController extends Controller
 
     }
     public function index(Request $request){
+
+
+
         $category=Category::when($request->term,function($query) use ($request)  {
             $query->where('name','like','%'.$request->term.'%');
         })->paginate(config('service.pagination'))->withQueryString();
+
+        foreach ($category as $item){
+            if(!is_null($item->parent_id))
+            {
+                $ty=Category::find($item->parent_id);
+                $item['parent_name']=$ty->name;
+            }
+
+
+        }
+
+
+
+
         return Inertia::render('Category/index',['category'=>$category]);
     }
     public function create(){
 
-        return Inertia::render('Category/create');
+
+        $printable_categories = new Category();
+        $printable_categories = $printable_categories->getPrintableCategories();
+
+        return Inertia::render('Category/create',['parent_category'=>$printable_categories]);
     }
 
     public function store(CategoryRequest $request){
+
 
         $image_path=null;
 
@@ -51,6 +73,7 @@ class CategoryController extends Controller
         $this->modelName->sku=$request->sku;
         $this->modelName->description=$request->description;
         $this->modelName->image_url=$image_path;
+        $this->modelName->parent_id=$request->parent_id;
         $this->modelName->save();
 
         return to_route($this->routeName.'.index')->with('message',$this->routeName.' Successfully Added');
@@ -63,9 +86,13 @@ class CategoryController extends Controller
         $this->modelName=Category::FindOrFail($id);
 //        $country=Country::all();
 
+        $printable_categories = new Category();
+        $printable_categories = $printable_categories->getPrintableCategories();
 
         return Inertia::render('Category/edit',[
             'category'=>$this->modelName,
+            'parent_category' =>$printable_categories
+
 
         ]);
 
@@ -101,6 +128,7 @@ class CategoryController extends Controller
         $this->modelName->name=$request->name;
         $this->modelName->sku=$request->sku;
         $this->modelName->description=$request->description;
+        $this->modelName->parent_id=$request->parent_id;
 
 
         $this->modelName->image_url=$imageUrl;

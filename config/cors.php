@@ -20,7 +20,8 @@ return [
         'public/js/simplebar.js',
         'public/js/script.js',
         'api/register',
-        'build/*'
+        'build/*',
+        'api/encrypt-value/*'
     ],
 
     'allowed_methods' => ['*'],

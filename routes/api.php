@@ -46,6 +46,8 @@ Route::get('/area/{city_id}', [\App\Http\Controllers\API\CommonController::class
 Route::post('/upload', [\App\Http\Controllers\API\CommonController::class, 'upload']);
 
 Route::get('/list/view/{id}', [\App\Http\Controllers\API\CommonController::class, 'getList'])->name('list-view');
+Route::get('/encrypt-value/{id}', [\App\Http\Controllers\API\CommonController::class, 'getEncryptString'])->name('encrypt-value');
+
 
 
 

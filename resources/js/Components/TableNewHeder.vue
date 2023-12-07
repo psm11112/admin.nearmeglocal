@@ -104,30 +104,13 @@ function removeSubCategory(id) {
                     <span v-if="item.image_url!==null">
 <!--                        <Image v-if="imageDisplay && !item.city_image"  :url="usePage().props.path.public+item.image_url" :name="item.name"></Image>-->
                         <Image :style="'w-14 h-14 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500'" v-if="imageDisplay && item.image_url"  :url="usePage().props.path.public+item.image_url" :name="item.name"></Image>
-                        <Image :style="'w-14 h-14 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500'" v-if="imageDisplay && item.city_image"  :url="usePage().props.path.public+item.city_image" :name="item.city_image"></Image>
-
-                            <Image :style="'w-14 h-14 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500'" v-if="imageDisplay && item.feature_image_url"  :url="usePage().props.path.public+item.feature_image_url" :name="item.title"></Image>
-
-                       <span v-if="svg" v-html="item.svg" class="text-2xl"></span>
                     </span>
 
                 </div>
             </td>
 
 
-            <td v-if="item.title" scope="row" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-                    {{item.title}}
-                </div>
 
-            </td>
-
-            <td v-if="item.category_id" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-                    {{item.parent_category.name}}
-
-                </div>
-            </td>
             <td v-if="item.name" scope="row" class="px-1 py-4">
                 <div class="flex items-center text-base font-semibold px-1">
                     {{item.name}}
@@ -135,107 +118,16 @@ function removeSubCategory(id) {
 
             </td>
 
-            <td v-if="item.city" scope="row" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-                    {{item.city.city_name}}
+            <td  scope="row" class="px-1 py-4">
+                <div v-if="item.parent_id" class="flex items-center text-base font-semibold px-1">
+                    {{item.parent_name}}
                 </div>
-
-            </td>
-
-            <td v-if="item.area_name" scope="row" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-                    {{item.area_name}}
-                </div>
-
-            </td>
-
-            <td v-if="item.state_name" scope="row" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-                    {{item.state_name}}
-                </div>
-
-            </td>
-
-            <td v-if="item.city_name" scope="row" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-                    {{item.city_name}}
-                </div>
+                <div v-else>-</div>
 
             </td>
 
 
 
-            <td v-if="item.state_id" scope="row" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-                    {{item.states.state_name}}
-                </div>
-
-            </td>
-
-
-            <td v-if="item.country_id" class="px-1 py-4">
-                <div class="flex  text-base font-semibold px-1">
-                    <span  v-html="item.country.svg" class="text-2xl"></span>
-                </div>
-            </td>
-
-
-
-
-
-
-            <td v-if="item.email" class="px-1 py-4">
-                <div class="flex items-center text-base font-semibold px-1">
-                    {{item.email}}
-
-                </div>
-            </td>
-
-
-            <td v-if="item.item_status">
-                <div class="flex justify-center items-center text-base font-semibold px-1">
-
-                    <Chip v-if="item.item_status == 2" class="pl-0 pr-3 bg-orange-400 text-white">
-                        <span class="bg-orange-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
-                            <span  class="text-sm">P</span>
-
-                            </span>
-                        <span class="ml-2 font-rubik ">
-                            <span class="" >Published</span>
-
-
-                            </span>
-                    </Chip>
-
-                    <Chip v-if="item.item_status ==1" class="pl-0 pr-3 bg-green-400 text-white">
-                        <span class="bg-green-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
-
-                            <span  class="text-sm">S</span>
-                            </span>
-                        <span class="ml-2 font-rubik ">
-
-                             <span class="" >Submit</span>
-
-                            </span>
-                    </Chip>
-
-                    <Chip v-if="item.item_status ==3" class="pl-0 pr-3 bg-red-400 text-white">
-                        <span class="bg-red-800 text-white border-circle flex justify-center   rounded-full w-5 h-5">
-
-                            <span  class="text-sm">S</span>
-                            </span>
-                        <span class="ml-2 font-rubik ">
-
-                             <span>Suspended</span>
-
-                            </span>
-                    </Chip>
-
-
-
-                </div>
-
-            </td>
             <td>
                 <div class="px-1 flex items-center">
 
@@ -249,9 +141,9 @@ function removeSubCategory(id) {
 
 
                 <button class="editButton">
-                <Link :href="userEditName+item.id"   >
-                    <svg class="text-lg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M221.66 90.34L192 120l-56-56l29.66-29.66a8 8 0 0 1 11.31 0L221.66 79a8 8 0 0 1 0 11.34Z" opacity=".2"></path><path d="m227.31 73.37l-44.68-44.69a16 16 0 0 0-22.63 0L36.69 152A15.86 15.86 0 0 0 32 163.31V208a16 16 0 0 0 16 16h44.69a15.86 15.86 0 0 0 11.31-4.69L227.31 96a16 16 0 0 0 0-22.63ZM51.31 160L136 75.31L152.69 92L68 176.68ZM48 179.31L76.69 208H48Zm48 25.38L79.31 188L164 103.31L180.69 120Zm96-96L147.31 64l24-24L216 84.68Z"></path></g></svg>
-                </Link>
+                    <Link :href="userEditName+item.id"   >
+                        <svg class="text-lg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><g fill="currentColor"><path d="M221.66 90.34L192 120l-56-56l29.66-29.66a8 8 0 0 1 11.31 0L221.66 79a8 8 0 0 1 0 11.34Z" opacity=".2"></path><path d="m227.31 73.37l-44.68-44.69a16 16 0 0 0-22.63 0L36.69 152A15.86 15.86 0 0 0 32 163.31V208a16 16 0 0 0 16 16h44.69a15.86 15.86 0 0 0 11.31-4.69L227.31 96a16 16 0 0 0 0-22.63ZM51.31 160L136 75.31L152.69 92L68 176.68ZM48 179.31L76.69 208H48Zm48 25.38L79.31 188L164 103.31L180.69 120Zm96-96L147.31 64l24-24L216 84.68Z"></path></g></svg>
+                    </Link>
                 </button>
 
 
