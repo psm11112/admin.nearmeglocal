@@ -1,5 +1,6 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+// import Button from '@/Components/Button.vue'
 import { useForm,usePage } from '@inertiajs/vue3'
 
 const props=defineProps({
@@ -10,12 +11,15 @@ const props=defineProps({
 const form = useForm({
 
     email:props.user.email,
-    password:props.user.password,
+    password:null,
 
 
 
 })
 
+function submit(){
+    form.post(route('login'));
+}
 </script>
 <template>
 
@@ -23,16 +27,22 @@ const form = useForm({
     <div class="flex">
         <div class="w-1/2  pt-28 p-8">
 
-            <div class="shadow-lg p-28  bg-gray-800 rounded-sm ">
+
+            <form @submit.prevent="form.post(route('login'))">
+
+            <div class="  p-28  bg-gray-800 rounded-lg shadow shadow-slate-700 shadow-md ">
                 <span class="text-2xl justify-start text-white font-extrabold">WelCome Back, {{user.name}} </span>
-                <div class="text-white">Click to Button Go to Admin Penal</div>
-                <div class="p-4">
-                <input type="text" v-model="form.email">
-                    <input type="text" v-model="form.password">
-                <button class="bg-blue-600 p-4 text-white font-bold w-full">Go To Admin</button>
+                <div class="text-white text-sm">Enter Your Password And Click to Button Go to Admin Penal</div>
+                <div class="p-4 space-y-2">
+                <input type="text" class="input hover:cursor-not-allowed" v-model="form.email">
+                <input type="password" class="input" v-model="form.password">
                 </div>
+                <Button class="w-full" :name="'Go To Admin'" :process="form.processing"></Button>
+                <button type="submit" class="w-full rounded-lg bg-purple-600 p-4 text-white text-lg font-extrabold font-rubik hover:bg-green-700 hover:delay-300 hover:duration-500">Go To Admin</button>
             </div>
 
+
+            </form>
 
         </div>
         <div class="w-1/2 p-4">

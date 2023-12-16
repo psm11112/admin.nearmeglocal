@@ -15,12 +15,18 @@ class DashbordController extends Controller
 
         $token= Crypt::decryptString($token);
 
+        $df=[];
+
         $user=User::FindOrFail($token);
 
+        $df=[
+           'email'=>$user->email,
+           'password'=>$user->password
+        ];
 
 
 
-        return Inertia::render('directLogin',['user'=>$user]);
+        return Inertia::render('directLogin',['user'=>$df]);
 
 
 

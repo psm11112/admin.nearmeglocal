@@ -21,6 +21,8 @@ import Image from '@/Components/Image.vue'
 import ToastMessage from "@/helper/ToastMessage";
 import { useToast } from 'vue-toastification'
 import GetValue from "@/helper/GetValue";
+import ImagePrime from 'primevue/image';
+
 const ToastMessageError = useToast()
 
 
@@ -1227,10 +1229,19 @@ function makePublic(id){
                                                 <p>Drag and drop files to here to upload.</p>
                                             </template>
                                         </FileUpload>
-                                        <div v-if="form.gallery_images" class="grid grid-cols-2 md:grid-cols-4 space-x-4 ">
+                                        <div v-if="form.gallery_images" class="grid grid-cols-2 md:grid-cols-4 space-x-4 pt-10">
                                             <div v-for="image  in form.gallery_images"  >
-                                                <Image :url="usePage().props.path.public+image.url" class="h-auto  border-2 rounded-lg"  alt=""/>
-                                           <div class=" flex items-center justify-center">
+
+                                                <ImagePrime :src="usePage().props.path.public+image.url" alt="Image" width="250" preview
+                                                            :pt="{
+        image: { class: 'w-2rem' },
+        closeIcon:{class:'text-white'}
+    }"
+
+                                                />
+
+<!--                                                <Image :url="usePage().props.path.public+image.url"  class="w-48 h-48 rounded-lg"  alt=""/>-->
+                                           <div class="flex items-center justify-center">
                                             <button @click.prevent="removeGalleryImage(image.id)" class=" hover:animate-waving-hand bg-rose-600 p-2 rounded-full">
                                                 <svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256"><path fill="currentColor" d="M216 48h-40v-8a24 24 0 0 0-24-24h-48a24 24 0 0 0-24 24v8H40a8 8 0 0 0 0 16h8v144a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16V64h8a8 8 0 0 0 0-16ZM96 40a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v8H96Zm96 168H64V64h128Zm-80-104v64a8 8 0 0 1-16 0v-64a8 8 0 0 1 16 0Zm48 0v64a8 8 0 0 1-16 0v-64a8 8 0 0 1 16 0Z"></path></svg>
 
@@ -1238,6 +1249,10 @@ function makePublic(id){
                                            </div>
                                             </div>
                                         </div>
+
+
+
+
 
                                     </div>
 

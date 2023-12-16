@@ -30,6 +30,7 @@ let hidden=ref(true);
 let viewData=ref(null);
 
 function showView(id){
+    window.scrollTo(0, 0);
     hidden.value = hidden.value ? false:true
     axios.get('/api/cities/view/'+id).then((res)=>{
       console.log(res);
@@ -121,7 +122,7 @@ function changeTerm(term){
                     </div>
 
                     <div class="flex flex-col items-center pb-10 space-y-2">
-                        <Image v-if="viewData.city_image!==null"  :url="baseUrl+viewData.city_image" :name="viewData.city_name"></Image>
+                        <Image v-if="viewData.city_image!==null"  :url="baseUrl+viewData.city_image" :name="viewData.city_name" :style="'border-2 border-gray-100 rounded-full w-14 h-14'"></Image>
                         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{viewData.city_name}}</h5>
                         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{viewData.states.state_name}}</h5>
 

@@ -28,8 +28,6 @@ class CategoryController extends Controller
     }
     public function index(Request $request){
 
-
-
         $category=Category::when($request->term,function($query) use ($request)  {
             $query->where('name','like','%'.$request->term.'%');
         })->paginate(config('service.pagination'))->withQueryString();
@@ -40,12 +38,7 @@ class CategoryController extends Controller
                 $ty=Category::find($item->parent_id);
                 $item['parent_name']=$ty->name;
             }
-
-
         }
-
-
-
 
         return Inertia::render('Category/index',['category'=>$category]);
     }

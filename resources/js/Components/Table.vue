@@ -103,8 +103,8 @@ function removeSubCategory(id) {
                     <span v-if="item.url==null"></span>
                     <span v-if="item.image_url!==null">
 <!--                        <Image v-if="imageDisplay && !item.city_image"  :url="usePage().props.path.public+item.image_url" :name="item.name"></Image>-->
-                        <Image :style="'w-14 h-14 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500'" v-if="imageDisplay && item.image_url"  :url="usePage().props.path.public+item.image_url" :name="item.name"></Image>
-                        <Image :style="'w-14 h-14 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500'" v-if="imageDisplay && item.city_image"  :url="usePage().props.path.public+item.city_image" :name="item.city_image"></Image>
+                        <Image :style="'w-14 h-14 p-1 rounded-full ring-1 ring-gray-100 dark:ring-gray-500'" v-if="imageDisplay && item.image_url"  :url="usePage().props.path.public+item.image_url" :name="item.name"></Image>
+                        <Image :style="'w-14 h-14 p-1 rounded-full ring-1 ring-gray-100 dark:ring-gray-500'" v-if="imageDisplay && item.city_image"  :url="usePage().props.path.public+item.city_image" :name="item.city_image"></Image>
 
                             <Image :style="'w-14 h-14 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500'" v-if="imageDisplay && item.feature_image_url"  :url="usePage().props.path.public+item.feature_image_url" :name="item.title"></Image>
 
