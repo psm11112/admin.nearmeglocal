@@ -21,7 +21,8 @@ return [
         'public/js/script.js',
         'api/register',
         'build/*',
-        'api/encrypt-value/*'
+        'api/encrypt-value/*',
+        'api/list/*'
     ],
 
     'allowed_methods' => ['*'],
