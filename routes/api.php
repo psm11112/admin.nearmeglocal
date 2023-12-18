@@ -51,6 +51,8 @@ Route::get('/encrypt-value/{id}', [\App\Http\Controllers\API\CommonController::c
 
 Route::get('/list', [\App\Http\Controllers\API\ListController::class, 'index'])->name('list.index');
 
+Route::get('/category', [\App\Http\Controllers\API\CategoryController::class, 'index'])->name('category.index');
+
 
 
 
