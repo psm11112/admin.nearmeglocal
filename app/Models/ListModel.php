@@ -10,6 +10,7 @@ class ListModel extends Model
     protected $table='list';
 
     protected $fillable=['category_id','sub_category_ids'];
+    protected $appends = ['createdAtHumansReadable'];
     use HasFactory;
 
     const ITEM_STATUS_SUBMIT= 1;
@@ -25,6 +26,13 @@ class ListModel extends Model
     public function country(){
         return $this->hasOne(Country::class,'id','country_id');
     }
+    public function area(){
+        return $this->hasOne(Areas::class,'id','area_id');
+    }
+
+    public function user(){
+        return $this->hasOne(User::class,'id','user_id');
+    }
 
     public function parent_category(){
         return $this->hasOne(Category::class,'id','category_id');
@@ -32,4 +40,9 @@ class ListModel extends Model
     public function gallery_images(){
         return $this->hasMany(Gallery::class,'list_id','id');
     }
+    public function getCreatedAtHumansReadableAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
 }
