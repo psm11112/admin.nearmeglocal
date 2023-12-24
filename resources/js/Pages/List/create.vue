@@ -306,6 +306,7 @@ function onAdvancedUploadMutipal(e){
                             </label>
 
                             </div>
+
                             <Dropdown
                                 :virtualScrollerOptions="{ lazy: true, onLazyLoad: true, itemSize: 48, showLoader: true, loading: false }"
                                 v-model="form.category_id"

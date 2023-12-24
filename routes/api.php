@@ -51,11 +51,17 @@ Route::get('/encrypt-value/{id}', [\App\Http\Controllers\API\CommonController::c
 
 Route::get('/list', [\App\Http\Controllers\API\ListController::class, 'index'])->name('list.index');
 Route::get('/list/{category_id}',[\App\Http\Controllers\API\ListController::class,'getListByCategory'])->name('list.category');
+Route::get('/list/search/{category_id}/{field}/{id}',[\App\Http\Controllers\API\ListController::class,'getListByField'])->name('list.field');
 
 Route::get('/category', [\App\Http\Controllers\API\CategoryController::class, 'index'])->name('category.index');
 
 Route::get('/category/{sku}',[\App\Http\Controllers\API\CategoryController::class,'getCategoryByName'])
     ->name('category.sku');
+
+
+Route::get('/country', [\App\Http\Controllers\API\CountryController::class, 'index'])->name('country.index');
+
+
 
 
 

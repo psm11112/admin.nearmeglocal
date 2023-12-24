@@ -199,7 +199,6 @@ class ListController extends Controller
         $country=Country::get();
 
 
-
         return Inertia::render('List/create',[
             'category'=>$category,
             'country'=>$country
